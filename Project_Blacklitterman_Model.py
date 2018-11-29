@@ -10,7 +10,7 @@ import scipy.optimize
 from numpy import *
 from pandas import *
 
-##The function to calculate the valid frontier of portfolio constructed with given assets
+##The function to calculate the valid frontier of portfolio constructed with given assets##
 def frontier_of_portfolio(Rp,Vp,rf):
     exp_mean = []
     opt_var = []
@@ -49,8 +49,10 @@ def frontier_of_portfolio(Rp,Vp,rf):
             raise BaseException(opt_result.message)
     
     return array(exp_mean),array(opt_var)
+###############################################################################################
 
 
+#################################This part is used to find out the tangent point#######################################
 def weight_MV(Rp,Vp,rf):
     def weight_initial(Rp):                 # initial weight of the optimization procedure
         port_count = len(Rp)
@@ -80,3 +82,24 @@ def weight_MV(Rp,Vp,rf):
         else:
             raise BaseException(weight_optimal.message)
     return MV_optimal(Rp,Vp,rf)
+#####################################################################################################################
+
+
+##This part is used to optimize the portfolio based on equilibrium excess return##
+def optimal_portfolio_based_on_equilibrium_returns(Rp,Vp,rf):
+    Wp = weight_MV(Rp,Vp,rf)
+    opt_mean = dot(Wp,Rp)
+    opt_var = dot(dot(Wp,Vp),Wp)
+    frontier_mean,frontier_var = frontier_of_portfolio(Rp,Vp,rf)
+    return Wp,opt_mean,opt_var,frontier_mean,frontier_var
+##W is the market capitalization weights
+def equilibrium_excess_return(W,Rp,Vp):
+    mean = dot(W,Rp)
+    var = dot(dot(W,Vp),W)
+    lamuda = (mean - rf)/var
+    return dot(dot(lamuda,Vp),W)
+
+Pi = equilibrium_excess_return(W,Rp,Vp)##Using market capitalization weight W
+
+result_eq = optimal_portfolio_based_on_equilibrium_returns(Rp,Vp,rf)
+###################################################################################

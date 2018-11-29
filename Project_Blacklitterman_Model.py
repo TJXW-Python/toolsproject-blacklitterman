@@ -103,3 +103,30 @@ Pi = equilibrium_excess_return(W,Rp,Vp)##Using market capitalization weight W
 
 result_eq = optimal_portfolio_based_on_equilibrium_returns(Rp,Vp,rf)
 ###################################################################################
+
+
+## This part is used to optimize the portfolio based on equilibrium excess return 
+## after adding investers' views and relation matrix into the equilibrium excess return--"Pi"
+def optimization_adding_views(Vp,view,view_link,pi):
+
+    def pi_add_view(Vp,view,view_link,pi):     
+        ##weight is measured by uncertainty, this is the uncertainty matrix of equilibrium excess return: pi_vol (n*n matrix)
+        pi_vol = dot(tau,Vp)                    
+        view_vol= dot(dot(dot(tau,view_link),Vp),transpose(view_link))  
+        pi_vol_inv = inv(pi_vol)                
+        view_vol_inv = dot(dot(transpose(view_link),inv(view_vol)),view_link) 
+        pi_view_weighted =dot(pi_vol_inv,pi)+dot(dot(transpose(view_link),inv(view_vol)),view) 
+        pi_new= dot(inv(view_vol_inv +pi_vol_inv), pi_view_weighted)  
+        ##the new equilibrium return weighted by the inverse of uncertainty and standardization
+    
+        return pi_new                          
+
+    # get the optimal allocation weights and efficent frontier based on new equilibrium excess return
+    pi_new = pi_add_view(Vp,view,view_link,pi)   
+    Wp_new = weight_MV(pi_new+rf,Vp,rf)
+    mean_new = sum(Wp_new * (pi_new+rf))
+    var_new = dot(dot(Wp_new,Vp),Wp_new)
+    mean_frontier, var_frontier = frontier_of_portfolio(pi_new+rf,Vp,rf)
+    
+    return Wp_new,mean_new,var_new,mean_frontier, var_frontier # return all the result in an array
+######################################################################################################

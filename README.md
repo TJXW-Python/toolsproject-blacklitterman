@@ -9,6 +9,17 @@ The main steps to complete the model:
 (3) After that, we re-calculate the portfolio with Blacklitterman Model. With different views, the project would adjust the matrix of return of each stock. Using updated matrices, we could re-calculate the optimal portfolio frontier and corresponding optimal solution. 
 
 
+* Optimizing Assets Allocation Weights based on Markowitz Model:
+The main idea of this part is to optimize the portfolio by adjusting its weights for different assets. The objective function is minimizing the variance of the portfolio, given the target expected return. 
+The input of the function should be: 
+(1) Rp: the matrix of return of assets derived by historical statistics;
+(2) Vp: the matrix of covariances between different assets;
+(3) rf: risk-free rate in the market. 
+The main procedure of the function is as follows:
+(1) Choose different target expected return; 
+(2) Optimize(Minimize) the objective function(the variance of the portfolio) by adjusting the weights of assets
+(3) Return the arrays of given expected returns and optimized variance of portfolio
+
 
 
 * Optimizing Assets Allocation Weights:
@@ -22,7 +33,6 @@ Blacklitterman mainly depends on the technique of reverse optimization of conven
 (4) Boundary: each assets' weight should be less or equal to 1 and be non-negative
 (5) Using Sequential Least Squares Programming Method to get optimal allocation weights 
 (6) Return the optyimal allocation weights as an array.
-
 
 
 

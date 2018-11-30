@@ -7,8 +7,9 @@ In order to solve the optimal portfolio based on Blacklitterman Model, we need n
 In this way, we use several lines of code at the beginning to interact with users and get the input about what assets users would like to invest. 
 
 Data Access:
+
 We choose 20 stocks with high market capitalization ("caps") according to the following website: https://www.theonlineinvestor.com/large_caps/
-We save the 20 symbols and their corresponding market caps in a csv file and access stock data from Yahoo Finance with pandas given the csv file.
+. We save the 20 symbols and their corresponding market caps in a csv file and access stock data from Yahoo Finance with pandas given the csv file. The SymbolAndCap.csv file is handy since we can load symbols and market caps from the csv file easily for further use and we can also easily update our pool of assets and their market caps as time passes.
 
 The main steps to complete the model: 
 (1) To start with, we need to obtain the matrix of return and covariance of specific stocks, which would be used during the calculation. 

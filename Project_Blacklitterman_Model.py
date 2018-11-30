@@ -145,9 +145,9 @@ def equilibrium_excess_return(W,Rp,Vp):
     lamuda = (mean - rf)/var
     return dot(dot(lamuda,Vp),W)
 
-Pi = equilibrium_excess_return(W,Rp,Vp) + rf##Using market capitalization weight W
+Pi = equilibrium_excess_return(W,Rp,Vp)##Using market capitalization weight W
 
-result_eq = optimal_portfolio_based_on_equilibrium_returns(Pi,Vp,rf)
+result_eq = optimal_portfolio_based_on_equilibrium_returns(Pi + rf,Vp,rf)
 ###################################################################################
 
 

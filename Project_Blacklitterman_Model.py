@@ -5,7 +5,7 @@ Created on Thu Nov 18 10:46:54 2018
 
 @author: fiona.xue
 """
-
+%pylab
 import scipy.optimize
 from numpy import *
 from pandas import *
@@ -62,7 +62,7 @@ def weight_MV(Rp,Vp,rf):
         return Wp
     
     def MV_object_function(Wp,Rp,Vp,rf):    # return the objective function of MV_optimization
-        p_mean = dot(Rp,Wp)                 #calculate the mean return of the portfolio
+        p_mean = sum(Rp*Wp)                 #calculate the mean return of the portfolio
         p_var = dot(dot(Wp,Vp),Wp)          #calculate the variance of the portfolio
         p_sharp_ratio= (p_mean - rf) / sqrt(p_var)
         object_func =  1 / p_sharp_ratio
@@ -91,7 +91,16 @@ def optimal_portfolio_based_on_equilibrium_returns(Rp,Vp,rf):
     opt_mean = dot(Wp,Rp)
     opt_var = dot(dot(Wp,Vp),Wp)
     frontier_mean,frontier_var = frontier_of_portfolio(Rp,Vp,rf)
-    return Wp,opt_mean,opt_var,frontier_mean,frontier_var
+    
+    ##set a dictionary to intergrate all optimal patameters
+    result_implied_return = dict()
+    result_implied_return['Weights']=Wp
+    result_implied_return['Tangent_mean']=opt_mean
+    result_implied_return['Tangent_var']=opt_var
+    result_implied_return['Frontier_mean']=frontier_mean
+    result_implied_return['Frontier_var']=frontier_var
+    return result_implied_return
+
 ##W is the market capitalization weights
 def equilibrium_excess_return(W,Rp,Vp):
     mean = dot(W,Rp)
@@ -107,27 +116,36 @@ result_eq = optimal_portfolio_based_on_equilibrium_returns(Rp,Vp,rf)
 
 ## This part is used to optimize the portfolio based on equilibrium excess return 
 ## after adding investers' views and relation matrix into the equilibrium excess return--"Pi"
-def optimization_adding_views(Vp,view,view_link,pi,rf):
+def optimization_adding_views(Vp,view,view_link,Pi,rf):
 
-    def pi_add_view(Vp,view,view_link,pi):  
-        scalar = 0.0025.       # scaling factor for blacklitterman model is set according to Lee's paper
+    def pi_add_view(Vp,view,view_link,Pi):  
+        scalar = 0.0025       # scaling factor for blacklitterman model is set according to Lee's paper
         ##weight is measured by uncertainty, this is the uncertainty matrix of equilibrium excess return: pi_vol (n*n matrix)
         pi_vol = dot(scalar,Vp)                    
         view_vol= dot(dot(dot(scalar,view_link),Vp),transpose(view_link))  
         pi_vol_inv = inv(pi_vol)                
         view_vol_inv = dot(dot(transpose(view_link),inv(view_vol)),view_link) 
-        pi_view_weighted =dot(pi_vol_inv,pi)+dot(dot(transpose(view_link),inv(view_vol)),view) 
+        pi_view_weighted =dot(pi_vol_inv,Pi)+dot(dot(transpose(view_link),inv(view_vol)),view) 
         pi_new= dot(inv(view_vol_inv +pi_vol_inv), pi_view_weighted)  
         ##the new equilibrium return weighted by the inverse of uncertainty and standardization
     
         return pi_new                          
 
     # get the optimal allocation weights and efficent frontier based on new equilibrium excess return
-    pi_new = pi_add_view(Vp,view,view_link,pi)   
+    pi_new = pi_add_view(Vp,view,view_link,Pi)   
     Wp_new = weight_MV(pi_new+rf,Vp,rf)
     mean_new = sum(Wp_new * (pi_new+rf))
     var_new = dot(dot(Wp_new,Vp),Wp_new)
     mean_frontier, var_frontier = frontier_of_portfolio(pi_new+rf,Vp,rf)
     
-    return Wp_new,mean_new,var_new,mean_frontier, var_frontier # return all the result in an array
+    #set new dictionary to output all the related parameters and results.
+    result_adding_views= dict()
+    result_adding_views['Pi']=pi_new
+    result_adding_views['Weights']=Wp_new
+    result_adding_views['Tangent_mean']=mean_new
+    result_adding_views['Tangent_var']=var_new
+    result_adding_views['Frontier_mean']=mean_frontier
+    result_adding_views['Frontier_var']=var_frontier
+    
+    return result_adding_views # return all the result in a dictionary
 ######################################################################################################

@@ -6,9 +6,13 @@ Created on Tue Nov 20 11:16:23 2018
 @author: fiona.xue
 """
 # Calculate the optimization result after adding investers' views and relation matrix into the equilibrium excess return--"Pi"
+
+%pylab
+
 def optimization_adding_views(Vp,view,view_link,pi,rf):
-    scalar = 0.025                              #Scaling factor of blacklitterman moedl, set by Lee's paper, usually equals to 1 divided by observation numbers.
+
     def pi_add_view(Vp,view,view_link,pi):      #get the weighted equilibrium excess return based on primary pi and invester's view.
+        scalar = 0.025                              #Scaling factor of blacklitterman moedl, set by Lee's paper, usually equals to 1 divided by observation numbers.
         pi_vol = dot(scalar,Vp)                    #weight is measured by uncertainty, this is the uncertainty matrix of equilibrium excess return: pi_vol (n*n matrix)
         view_vol= dot(dot(dot(scalar,view_link),Vp),transpose(view_link))  # the uncertainty of adding views: view_vol (k*k matrix)
         pi_vol_inv = inv(pi_vol)                # inverse the uncertainty matrix of equilibrium excess return

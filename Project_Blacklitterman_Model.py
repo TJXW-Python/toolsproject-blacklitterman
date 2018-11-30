@@ -20,10 +20,10 @@ print('Based on the performance, we provided 20 assets that are worthy investing
 print('The symbols of these 20 assets are as follows:')
 print('1 GE; 2 CVX; ...')
 print('Please select assets that you want to invest: ')
-print('(enter the number of the assets, e.g. if you want to invest GE, type in 1; CVX for 2;...)')
+print('(Enter the number of the assets, e.g. if you want to invest GE, type in 1; CVX for 2;...)')
 illegal_asset = 100
 judgement = 0
-print('(please use list to type in, e.g. [1,4,6,7,9])')
+print('(Please use list to type in, e.g. [1,4,6,7,9])')
 while illegal_asset > 0 or judgement < 1:
     number_of_assets = input('hhaha')
     pattern1 = r'[0-9.]+'
@@ -56,32 +56,45 @@ while illegal_asset > 0 or judgement < 1:
 print(f'Your choices are assets: {select_assets}')
 ################################################################################################
 
+
+#This function calculate mean return
+def p_mean(Wp, Rp):
+    return sum(Rp * Wp)
+
+#This function calculate variance of returns
+def p_var(Wp, Vp):  
+    return dot(dot(Wp, Vp), Wp)
+
+# Combine mean and variance of returns calculation
+def p_mean_var(Wp, Rp, Vp):
+    return p_mean(Wp, Rp), p_var(Wp, Vp)
+
+
+
+
+
 ##The function to calculate the valid frontier of portfolio constructed with given assets##
 def frontier_of_portfolio(Rp,Vp,rf):
-    exp_mean = []
-    opt_var = []
-    
+    exp_mean, opt_var = [], []
     num_of_assets = len(Rp)
     
-    min_ret = min(Rp)
-    max_ret = max(Rp)
+    min_ret, max_ret= min(Rp), max(Rp)
     group = 30 #Calculate 30 groups of optimal solution
     interval = (max_ret - min_ret)/(group - 1)
-    ret_list = []
-    for i in range(group):
-        ret_list.append((min_ret + interval * i))
+    ret_list = [(min_ret + interval * i) for i in range(group)]
+    
+    # For given level of return r, find weights which minimizes portfolio variance.
     def func_for_optimization(Wp,Rp,Vp,r):
-        mean = dot(Wp,Rp)
-        var = dot(dot(Wp,Vp),Wp)
+        mean, var = p_mean_var(Wp, Rp, Vp)
         penalty = 10000 * abs(mean - r)
         #To guarantee that the mean of return of the portfolio should equal to r
         return var + penalty
-    for r in ret_list:#The recursion should follows different target return
-        Wp = ones(num_of_assets)/num_of_assets #The initial weight for optimization
-        boundary = [] 
-        for i in range(num_of_assets):
-            boundary.append((0,1))
-            #The boundary of each weight for a specific asset
+    #The recursion should follows different target return
+    for r in ret_list:
+        #Initial weight for optimization
+        Wp = ones(num_of_assets)/num_of_assets 
+         #The boundary of each weight for a specific asset
+        boundary = [(0, 1) for i in range(num_of_assets)]   
         constraint_ = ({'type': 'eq', 'fun': lambda Wp: sum(Wp) - 1.0})
         #The constraints in optimizing that the sum of weights should equal to 1
         opt_result = scipy.optimize.minimize(
@@ -90,7 +103,7 @@ def frontier_of_portfolio(Rp,Vp,rf):
         
         if opt_result.success:
             exp_mean.append(r)
-            opt_var.append(dot(dot(opt_result.x,Vp),opt_result.x))
+            opt_var.append(p_var(opt_result.x, Vp))
         else:
             raise BaseException(opt_result.message)
     

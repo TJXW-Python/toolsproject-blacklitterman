@@ -13,9 +13,8 @@ import re
 
 
 
-##At the beginning of the project, we need to ask users for some specific variables, including: #########
-##The choices of assets for portfolio, which are chosen from the sample set provided by project #########
-##The view given by the investor#########################################################################
+##At the beginning of the project######################################################################
+#We need to ask users to provide the assets they would like to invest##################################
 print('Welcome to use the Blacklitterman Model project.')
 print('Based on the performance, we provided 20 assets that are worthy investing.')
 print('The symbols of these 20 assets are as follows:')
@@ -55,9 +54,7 @@ while illegal_asset > 0 or judgement < 1:
             judgement == 0
             print('Please choose again:')
 print(f'Your choices are assets: {select_assets}')
-print('Now, please enter your view toward assets using specific style.')
-#####To be continue##
-
+################################################################################################
 
 ##The function to calculate the valid frontier of portfolio constructed with given assets##
 def frontier_of_portfolio(Rp,Vp,rf):

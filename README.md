@@ -25,4 +25,12 @@ Blacklitterman mainly depends on the technique of reverse optimization of conven
 
 
 
+* The optimal allocation weights based on implied equilibrium return and investors' views:
+
+After constructing the views matrix and link matrix to express the investors' views on some assets of the portfolio, we need to add these views to the implied equilibrium excess return to get new optimal weights, the weight of view is determined by the scaling factor for views. The scaling factor here is set to be 0.025, referring to Lee's paper materials. User can also set this scalar equals to 1 divided by observation numbers.
+
+(1)Input the view matrix, link matrix to assets pool, scaling factor, implied equilibrium excess return vector, covariance matrix of original portfolio and risk-free rate.
+(2)Calculate the uncertainty of views and uncertainty of implied equilibrium excess return;
+(3)Calculate the adjusted implied equilibrium excess return by adding view matrix into it, the weight is measured by the inverse of uncertainty.
+(4)Return the new equilibirum excess return, which including the new infomation of investors' views, the weight is determined by the scaling factor for views.
 

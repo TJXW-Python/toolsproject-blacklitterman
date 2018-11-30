@@ -13,4 +13,4 @@ def equilibrium_excess_return(W,Rp,Vp):
 
 Pi = equilibrium_excess_return(W,Rp,Vp)##Using market capitalization weight W
 
-result_eq = optimal_portfolio_based_on_equilibrium_returns(Rp,Vp,rf)
+result_eq = optimal_portfolio_based_on_equilibrium_returns(Pi + rf,Vp,rf)

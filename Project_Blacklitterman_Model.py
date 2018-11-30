@@ -9,33 +9,92 @@ Created on Thu Nov 18 10:46:54 2018
 import scipy.optimize
 from numpy import *
 from pandas import *
+import re
+
+
+
+##At the beginning of the project######################################################################
+#We need to ask users to provide the assets they would like to invest##################################
+print('Welcome to use the Blacklitterman Model project.')
+print('Based on the performance, we provided 20 assets that are worthy investing.')
+print('The symbols of these 20 assets are as follows:')
+print('1 GE; 2 CVX; ...')
+print('Please select assets that you want to invest: ')
+print('(Enter the number of the assets, e.g. if you want to invest GE, type in 1; CVX for 2;...)')
+illegal_asset = 100
+judgement = 0
+print('(Please use list to type in, e.g. [1,4,6,7,9])')
+while illegal_asset > 0 or judgement < 1:
+    number_of_assets = input('hhaha')
+    pattern1 = r'[0-9.]+'
+    type_in_assets = re.findall(pattern1,number_of_assets)
+    illegal_asset = 0
+    select_assets = []
+    for i in type_in_assets:
+        a = int(float(i))
+        if a < 0 or a > 20 or a != float(i):
+            illegal_asset += 1
+            print('Please type in integer numbers between 1-20!')
+        exist = 0
+        for j in select_assets:
+            if j == a:
+                exist += 1
+        if exist >= 1:
+            continue
+        else:
+            select_assets.append(a)
+    if illegal_asset == 0:
+        print(f'Your choices are assets: {select_assets}')
+        print('Please verify your choice: 1 for Yes, 0 for No.')
+        judge = input('judge = ')
+        if int(float(judge)) == 1:
+            judgement == 1
+            break
+        else:
+            judgement == 0
+            print('Please choose again:')
+print(f'Your choices are assets: {select_assets}')
+################################################################################################
+
+
+#This function calculate mean return
+def p_mean(Wp, Rp):
+    return sum(Rp * Wp)
+
+#This function calculate variance of returns
+def p_var(Wp, Vp):  
+    return dot(dot(Wp, Vp), Wp)
+
+# Combine mean and variance of returns calculation
+def p_mean_var(Wp, Rp, Vp):
+    return p_mean(Wp, Rp), p_var(Wp, Vp)
+
+
+
+
 
 ##The function to calculate the valid frontier of portfolio constructed with given assets##
 def frontier_of_portfolio(Rp,Vp,rf):
-    exp_mean = []
-    opt_var = []
-    
+    exp_mean, opt_var = [], []
     num_of_assets = len(Rp)
     
-    min_ret = min(Rp)
-    max_ret = max(Rp)
+    min_ret, max_ret= min(Rp), max(Rp)
     group = 30 #Calculate 30 groups of optimal solution
     interval = (max_ret - min_ret)/(group - 1)
-    ret_list = []
-    for i in range(group):
-        ret_list.append((min_ret + interval * i))
+    ret_list = [(min_ret + interval * i) for i in range(group)]
+    
+    # For given level of return r, find weights which minimizes portfolio variance.
     def func_for_optimization(Wp,Rp,Vp,r):
-        mean = dot(Wp,Rp)
-        var = dot(dot(Wp,Vp),Wp)
+        mean, var = p_mean_var(Wp, Rp, Vp)
         penalty = 10000 * abs(mean - r)
         #To guarantee that the mean of return of the portfolio should equal to r
         return var + penalty
-    for r in ret_list:#The recursion should follows different target return
-        Wp = ones(num_of_assets)/num_of_assets #The initial weight for optimization
-        boundary = [] 
-        for i in range(num_of_assets):
-            boundary.append((0,1))
-            #The boundary of each weight for a specific asset
+    #The recursion should follows different target return
+    for r in ret_list:
+        #Initial weight for optimization
+        Wp = ones(num_of_assets)/num_of_assets 
+         #The boundary of each weight for a specific asset
+        boundary = [(0, 1) for i in range(num_of_assets)]   
         constraint_ = ({'type': 'eq', 'fun': lambda Wp: sum(Wp) - 1.0})
         #The constraints in optimizing that the sum of weights should equal to 1
         opt_result = scipy.optimize.minimize(
@@ -44,7 +103,7 @@ def frontier_of_portfolio(Rp,Vp,rf):
         
         if opt_result.success:
             exp_mean.append(r)
-            opt_var.append(dot(dot(opt_result.x,Vp),opt_result.x))
+            opt_var.append(p_var(opt_result.x, Vp))
         else:
             raise BaseException(opt_result.message)
     
@@ -91,7 +150,7 @@ def optimal_portfolio_based_on_equilibrium_returns(Rp,Vp,rf):
     opt_mean = dot(Wp,Rp)
     opt_var = dot(dot(Wp,Vp),Wp)
     frontier_mean,frontier_var = frontier_of_portfolio(Rp,Vp,rf)
-    
+ 
     ##set a dictionary to intergrate all optimal patameters
     result_implied_return = dict()
     result_implied_return['Weights']=Wp
@@ -110,7 +169,7 @@ def equilibrium_excess_return(W,Rp,Vp):
 
 Pi = equilibrium_excess_return(W,Rp,Vp)##Using market capitalization weight W
 
-result_eq = optimal_portfolio_based_on_equilibrium_returns(Rp,Vp,rf)
+result_eq = optimal_portfolio_based_on_equilibrium_returns(Pi + rf,Vp,rf)
 ###################################################################################
 
 

@@ -137,7 +137,13 @@ def optimal_portfolio_based_on_equilibrium_returns(Rp,Vp,rf):
     opt_mean = dot(Wp,Rp)
     opt_var = dot(dot(Wp,Vp),Wp)
     frontier_mean,frontier_var = frontier_of_portfolio(Rp,Vp,rf)
-    return Wp,opt_mean,opt_var,frontier_mean,frontier_var
+    result = []
+    result.append(Wp)
+    result.append(opt_mean)
+    result.append(opt_var)
+    result.append(frontier_mean)
+    result.append(frontier_var)
+    return result#Wp,opt_mean,opt_var,frontier_mean,frontier_var
 ##W is the market capitalization weights
 def equilibrium_excess_return(W,Rp,Vp):
     mean = dot(W,Rp)

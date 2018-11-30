@@ -12,5 +12,5 @@ def equilibrium_excess_return(W,Rp,Vp):
     return dot(dot(lamuda,Vp),W)
 
 Pi = equilibrium_excess_return(W,Rp,Vp)##Using market capitalization weight W
-Pi_ = Pi + rf
-result_eq = optimal_portfolio_based_on_equilibrium_returns(Pi_,Vp,rf)
+
+result_eq = optimal_portfolio_based_on_equilibrium_returns(Pi + rf,Vp,rf)

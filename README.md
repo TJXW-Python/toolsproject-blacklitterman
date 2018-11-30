@@ -3,6 +3,10 @@ For tools project- Blacklitterman
 
 This project is created to calculate optimal portfolio based on Blacklitterman Model, which is based on Markowitz Model. In real life, there are several disadvantages in using Markowitz Model to find out the optimal portfolio, because the Markowitz Model only pays attention to historical statistics, which may not be able to reflect accurate situation in reality, especially when somebody holds unexposed news. Therefore, Blacklitterman Model could be an alternative to Markowitz Model, for it contains subject views given by investors. 
 
+To solve the optimal portfolio based on investor's view, we need some important variables provided by the user. In our project, we would provide the user 20 assets with high market value. Users should choose assets that they would like to invest based on their knowledge. At the same time, they also need to provide their own views towards the assets they select. In this way, the program could adjust the return matrix according to users' views. So in the beginning of the code, we have to interact with users. 
+We use several lines of code to interact with users and get input including the assets they want to invest and the views they hold. 
+
+
 The main steps to complete the model: 
 (1) To start with, we need to obtain the matrix of return and covariance of specific stocks, which would be used during the calculation. 
 (2) Then, we calculate the optimal portfolio based on Markowitz Model using optimization method. Based on the optimized result, we could find out the valid frontier of portfolio. And we could give out the optimal portfolio according to Markowitz Model. 

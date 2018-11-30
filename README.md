@@ -24,7 +24,8 @@ The main procedure of the function is as follows:
 
 * Optimizing Assets Allocation Weights:
 
-Blacklitterman mainly depends on the technique of reverse optimization of conventional approach to get optimal allocation of assets in a given portfolio. Therefore, after aassets information collection, we should build function to sovle the optimal allocation weights of each assets in the portfolio based on Markowitz Model:
+Blacklitterman mainly depends on the technique of reverse optimization of conventional approach to get optimal allocation of assets in a given portfolio. Therefore, after aassets information collection, we should build function to sovle the optimal allocation weights of each assets in the portfolio based on Markowitz Model.
+
 (1) Input the estimated parameters of the portfolio:
     Portfolio expected returns, variance and covariance matrix of the assets pool.
 (2) Settting the optimization objective function:
@@ -32,7 +33,20 @@ Blacklitterman mainly depends on the technique of reverse optimization of conven
 (3) Subject to: the sum of weight should equal to 1; 
 (4) Boundary: each assets' weight should be less or equal to 1 and be non-negative
 (5) Using Sequential Least Squares Programming Method to get optimal allocation weights 
-(6) Return the optyimal allocation weights as an array.
+(6) Return the optimal allocation weights as an array.
 
+
+
+
+* Optimizing allocation weights based on implied equilibrium return and investors' views:
+
+After constructing the views matrix and link matrix to express the investors' views on some assets of the portfolio, we need to add these views to the implied equilibrium excess return to get new optimal weights, the weight of view is determined by the scaling factor for views. The scaling factor here is set to be 0.025, referring to Lee's paper materials. User can also set this scalar equals to 1 divided by observation numbers.
+
+(1)Input of the function should be:
+   The view matrix, link matrix to assets pool, scaling factor, implied equilibrium excess return vector, covariance matrix of original portfolio and risk-free rate.
+(2)Calculate the uncertainty of views and uncertainty of implied equilibrium excess return;
+(3)Calculate the adjusted implied equilibrium excess return by adding view matrix into it, the weight is measured by the inverse of uncertainty.
+(4)Optimize: Using the new equilibirum excess return, which including the new infomation of investors' views, the weight is determined by the scaling factor for views to get new allocation weights and efficient frontier.
+(5)Return the blacklitterman allocation weights, new optimal portfolio return and variance, the efficient frontier.
 
 

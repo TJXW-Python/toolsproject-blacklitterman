@@ -13,7 +13,8 @@ The main steps to complete the model:
 
 * Optimizing Assets Allocation Weights:
 
-Blacklitterman mainly depends on the technique of reverse optimization of conventional approach to get optimal allocation of assets in a given portfolio. Therefore, after aassets information collection, we should build function to sovle the optimal allocation weights of each assets in the portfolio based on Markowitz Model:
+Blacklitterman mainly depends on the technique of reverse optimization of conventional approach to get optimal allocation of assets in a given portfolio. Therefore, after aassets information collection, we should build function to sovle the optimal allocation weights of each assets in the portfolio based on Markowitz Model.
+
 (1) Input the estimated parameters of the portfolio:
     Portfolio expected returns, variance and covariance matrix of the assets pool.
 (2) Settting the optimization objective function:

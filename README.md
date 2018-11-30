@@ -6,6 +6,10 @@ This project is created to calculate optimal portfolio based on Blacklitterman M
 In order to solve the optimal portfolio based on Blacklitterman Model, we need not only some important views towards assets but also the choice of assets that investors would like to invest. In our project, we would provide the user 20 assets with high market value. Users should choose assets that they would like to invest based on their knowledge. At the same time, considering that investors may not be quite familiar with finance market, we would set some important views in advance. Therefore, the portfolio will be optimized automatically with some important views based on Blacklitterman Model. 
 In this way, we use several lines of code at the beginning to interact with users and get the input about what assets users would like to invest. 
 
+Data Access:
+We choose 20 stocks with high market capitalization ("caps") according to the following website: https://www.theonlineinvestor.com/large_caps/
+We save the 20 symbols and their corresponding market caps in a csv file and access stock data from Yahoo Finance with pandas given the csv file.
+
 The main steps to complete the model: 
 (1) To start with, we need to obtain the matrix of return and covariance of specific stocks, which would be used during the calculation. 
 (2) Then, we calculate the optimal portfolio based on Markowitz Model using optimization method. Based on the optimized result, we could find out the valid frontier of portfolio. And we could give out the optimal portfolio according to Markowitz Model. 

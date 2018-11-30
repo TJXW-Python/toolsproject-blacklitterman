@@ -107,12 +107,13 @@ result_eq = optimal_portfolio_based_on_equilibrium_returns(Rp,Vp,rf)
 
 ## This part is used to optimize the portfolio based on equilibrium excess return 
 ## after adding investers' views and relation matrix into the equilibrium excess return--"Pi"
-def optimization_adding_views(Vp,view,view_link,pi):
+def optimization_adding_views(Vp,view,view_link,pi,rf):
 
-    def pi_add_view(Vp,view,view_link,pi):     
+    def pi_add_view(Vp,view,view_link,pi):  
+        scalar = 0.0025.       # scaling factor for blacklitterman model is set according to Lee's paper
         ##weight is measured by uncertainty, this is the uncertainty matrix of equilibrium excess return: pi_vol (n*n matrix)
-        pi_vol = dot(tau,Vp)                    
-        view_vol= dot(dot(dot(tau,view_link),Vp),transpose(view_link))  
+        pi_vol = dot(scalar,Vp)                    
+        view_vol= dot(dot(dot(scalar,view_link),Vp),transpose(view_link))  
         pi_vol_inv = inv(pi_vol)                
         view_vol_inv = dot(dot(transpose(view_link),inv(view_vol)),view_link) 
         pi_view_weighted =dot(pi_vol_inv,pi)+dot(dot(transpose(view_link),inv(view_vol)),view) 

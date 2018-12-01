@@ -134,12 +134,12 @@ abso_view_judge = 1
 while abso_view_judge:
     abso_view_judge = 0
     abso_view_ori = input()
-    abso_pattern = r'[A-Za-z]+\W*[0-9.]+'
+    abso_pattern = r'[A-Za-z-]+\W*[0-9.-]+'
     user_abso_view_str = re.findall(abso_pattern,abso_view_ori)
     view = dict()
     abso_view_list = []
     for i in user_abso_view_str:
-        abso_name = r'^[A-Za-z]+'
+        abso_name = r'^[A-Za-z-]+'
         abso_excess_return = r'[0-9.-]+$'
         temp_name = re.findall(abso_name,i)
         temp_ret = re.findall(abso_excess_return,i)

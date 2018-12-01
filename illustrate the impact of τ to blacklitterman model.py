@@ -19,7 +19,7 @@ def optimization_adding_views(Vp,view,view_link,Pi,rf):
             view_vol_inv = dot(dot(transpose(view_link),inv(view_vol)),view_link) 
             pi_view_weighted =dot(pi_vol_inv,Pi)+dot(dot(transpose(view_link),inv(view_vol)),view) 
             pi_new= dot(inv(view_vol_inv +pi_vol_inv), pi_view_weighted) 
-            pi_new_list = pi_new_list.append(pi_new)
+            pi_new_list.append(pi_new)
         ##the new equilibrium return weighted by the inverse of uncertainty and standardization
     
         return pi_new_list                         
@@ -35,8 +35,8 @@ def optimization_adding_views(Vp,view,view_link,Pi,rf):
     var_frontier_list = []   
     for i in range(len_list):
         mean_frontier, var_frontier = frontier_of_portfolio(pi_new_list[i] + rf, Vp, rf)
-        mean_frontier_list = mean_frontier_list.append(mean_frontier)
-        var_frontier_list = var_frontier_list.append(var_frontier)
+        mean_frontier_list.append(mean_frontier)
+        var_frontier_list.append(var_frontier)
     
     result_adding_views_list = []
     for i in range(len_list):
@@ -48,6 +48,6 @@ def optimization_adding_views(Vp,view,view_link,Pi,rf):
         result_adding_views['Frontier_mean'] = mean_frontier_list[i]
         result_adding_views['Frontier_var'] = var_frontier_list[i]
         
-        result_adding_views_list = result_adding_views_list.append(result_adding_views)
+        result_adding_views_list.append(result_adding_views)
     return result_adding_views_list
   

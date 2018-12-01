@@ -54,9 +54,10 @@ while illegal_asset > 0 or judgement < 1:
             judgement == 0
             print('Please choose again:')
 print(f'Your choices are assets: {select_assets}')
+
 ################################################################################################
 
-##This function to calculate the valid frontier of portfolio constructed with given assets##
+##The function to calculate the valid frontier of portfolio constructed with given assets##
 def frontier_of_portfolio(Rp,Vp,rf):
     exp_mean = []
     opt_var = []
@@ -96,10 +97,9 @@ def frontier_of_portfolio(Rp,Vp,rf):
             raise BaseException(opt_result.message)
     
     return array(exp_mean),array(opt_var)
-
 ###############################################################################################
 
-##This function is used to calculate the optimal tangent point of given assets and risk free assets.
+##This function is used to calculate tangent point based on optimal portfolio and risk-free rate
 def weight_MV(Rp,Vp,rf):
     def weight_initial(Rp):                 # initial weight of the optimization procedure
         port_count = len(Rp)
@@ -154,6 +154,7 @@ def equilibrium_excess_return(W,Rp,Vp):
 Pi = equilibrium_excess_return(W,Rp,Vp)##Using market capitalization weight W
 
 result_eq = optimal_portfolio_based_on_equilibrium_returns(Pi+rf,Vp,rf)
+
 ###################################################################################
 
 ## This part is used to optimize the portfolio based on equilibrium excess return 
@@ -188,6 +189,6 @@ def optimization_adding_views(Vp,view,view_link,Pi,rf):
     result_adding_views['Frontier_mean']=mean_frontier
     result_adding_views['Frontier_var']=var_frontier
     return result_adding_views
+  
 ######################################################################################################
-
 

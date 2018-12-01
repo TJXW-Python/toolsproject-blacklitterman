@@ -1,4 +1,8 @@
 from pandas import *
+from datetime import datetime
+# terminal: $ pip install pandas-datareader
+# or conda install -c anaconda pandas-datareader 
+import pandas_datareader as pdr
 
 base = 'data/'
 pool_file = base + 'SymbolsAndCaps.csv'
@@ -35,7 +39,7 @@ def load_data(assets_list):
     
     pool_symbols, pool_caps = load_symbols_and_caps(pool_file) # first load all symbols and caps in the pool
     
-    symbols = assets_list
+    symbols = list(set(assets_list)) # remove repeated symbols
     caps = [] # extract market caps of the stocks chosen by the user
     for s in symbols:
         caps.append(pool_caps[pool_symbols.index(s)])

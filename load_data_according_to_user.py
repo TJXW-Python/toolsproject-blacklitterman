@@ -8,7 +8,14 @@ base = 'data/'
 pool_file = base + 'SymbolsAndCaps.csv'
 
 
-assets_list = input('\n\nPlease type in the stock symbols you are interested in and separate them with a white space. For example, AMZN AAPL BRK-B\n\n') 
+assets_list = input('''
+Welcome to use the Blacklitterman Model project.
+Based on the performance, we provide 20 assets that are worthy of investing.
+The symbols of these 20 assets are as follows: \n\nAAPL MSFT AMZN JNJ GOOG \n\nJPM XOM FB GOOGL BRK-B \n\nWMT BAC UNH PFE WFC \n\nV VZ PG CVX T
+\nPlease type in the stock symbols you are interested in 
+and separate them with a white space. Press Enter to complete.
+For example, AMZN AAPL BRK-B\n\n''') 
+
 assets_list = select_assets(assets_list)
 
 # Function loads stocks symbols and their market capitalizations, as of Nov 29, 2018

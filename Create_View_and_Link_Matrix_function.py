@@ -36,6 +36,7 @@ def matrix_view_and_link(symbols,view):
         #recognize the absolute views and relative views
         if symbol_2:
             link_matrix[i,symbols_index[symbol_2]] = -1
+
     #use dictionary to return view and link matrix for further function
     View =dict()
     View['view_matrix']=view_matrix

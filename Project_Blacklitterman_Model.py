@@ -25,14 +25,14 @@ illegal_asset = 100
 judgement = 0
 print('(Please use list to type in, e.g. [1,4,6,7,9])')
 while illegal_asset > 0 or judgement < 1:
-    number_of_assets = input('hhaha')
+    number_of_assets = input()
     pattern1 = r'[0-9.]+'
     type_in_assets = re.findall(pattern1,number_of_assets)
     illegal_asset = 0
     select_assets = []
     for i in type_in_assets:
         a = int(float(i))
-        if a < 0 or a > 20 or a != float(i):
+        if a <= 0 or a > 20 or a != float(i):
             illegal_asset += 1
             print('Please type in integer numbers between 1-20!')
         exist = 0

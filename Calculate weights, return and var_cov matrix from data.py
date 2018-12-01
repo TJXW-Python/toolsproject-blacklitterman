@@ -25,4 +25,4 @@ def compute_some_statistics(price_arrays):
 W = np.array(caps) / sum(caps)
 Rp = compute_some_statistics(price_arrays)
 Vp = compute_some_statistics(price_arrays)
-# rf =  undecided
+rf = 0.015

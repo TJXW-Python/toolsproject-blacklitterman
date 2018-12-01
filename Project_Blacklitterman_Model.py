@@ -13,51 +13,151 @@ from numpy import *
 from pandas import *
 import re
 
+from datetime import datetime
+######################### Have to install pandas-datareader on terminal first!!! ######################
+# terminal: conda install -c anaconda pandas-datareader 
+# or $ pip install pandas-datareader
+import pandas_datareader as pdr
 
 
 
 ##At the beginning of the project######################################################################
 #We need to ask users to provide the assets they would like to invest##################################
-print('''Welcome to use the Blacklitterman Model project.
-    \nBased on the performance, we provided 20 assets that are worthy investing.
-    \nThe symbols of these 20 assets are as follows:
-    \n1 GE; 2 CVX; ...
-    \nPlease select assets that you want to invest: 
-    \n(Enter the number of the assets, e.g. if you want to invest GE, type in 1; CVX for 2;...)
-    ''')re
-illegal_asset = 100
-judgement = 0
-print('(Please use list to type in, e.g. [1,4,6,7,9])')
-while illegal_asset > 0 or judgement < 1:
-    number_of_assets = input('hhaha')
-    pattern1 = r'[0-9.]+'
-    type_in_assets = re.findall(pattern1,number_of_assets)
-    illegal_asset = 0
-    select_assets = []
-    for i in type_in_assets:
-        a = int(float(i))
-        if a < 0 or a > 20 or a != float(i):
-            illegal_asset += 1
-            print('Please type in integer numbers between 1-20!')
-        exist = 0
-        for j in select_assets:
-            if j == a:
-                exist += 1
-        if exist >= 1:
+assets_list = []
+while assets_list == []:
+    assets_list = input('''Welcome to use the Blacklitterman Model project. \nBased on the performance, we provide 20 assets that are worthy of investing. \nThe symbols of these 20 assets are as follows: \n\nAAPL MSFT AMZN JNJ GOOG JPM XOM FB GOOGL BRK-B \nWMT BAC UNH PFE WFC V VZ PG CVX T
+    \nPlease type in the stock symbols you are interested in and separate them with a white space. Press Enter to complete. For example, AMZN AAPL BRK-B\n\n''')
+    assets_list = select_assets(assets_list)
+
+# Function loads stocks symbols and their market capitalizations, as of Nov 29, 2018
+def load_symbols_and_caps(file):
+    symbols_caps = pandas.read_csv(file, index_col = None) # symbols_caps is a pandas.dataframe
+    symbols_caps.dropna(how = "all", inplace = True)
+    symbols = list(symbols_caps['symbols'])
+    caps = list(symbols_caps['caps'])
+    return symbols, caps
+
+# Function takes in user input and returns a list of stock symbols if input is legal and returns [] otherwise
+def select_assets(*args):
+    pool_symbols, _ = load_symbols_and_caps(pool_file)
+    try:
+        assets = ''.join(args).upper().split(' ')
+    except:
+        print('\n\nWarning: Illegal input!\n\n')
+        return []
+    if set(pool_symbols).union(set(assets)) != set(pool_symbols):
+        print('\n\nWarning: Illegal input format or stock not in our pool! Please type again!\n\n')
+        return []
+    else:
+        print('\n\nCongratulations! Legal Input!')
+        return assets
+
+# Function extract market caps corresponding to the stock symbols entered by the user
+# and also loads the historical stock prices and returns stock symbols, caps and historical prices
+def load_data(assets_list):
+    
+    pool_symbols, pool_caps = load_symbols_and_caps(pool_file) # first load all symbols and caps in the pool
+    
+    symbols = list(set(assets_list)) # remove repeated symbols
+    caps = [] # extract market caps of the stocks chosen by the user
+    for s in symbols:
+        caps.append(pool_caps[pool_symbols.index(s)])
+    
+    price_arrays = [] # array of close prices of each stock chosen by the user
+    for s in symbols:
+        data = pandas.read_csv('data/%s.csv' % s, index_col=None, parse_dates=True) # data is a pandas.dataframe
+        prices = list(data['Close'])
+        price_arrays.append(prices) 
+    return symbols, caps, price_arrays # price_arrays is an n*T list    
+symbols, caps, prices = load_data(assets_list)
+
+
+
+# print('''Welcome to use the Blacklitterman Model project.
+#     \nBased on the performance, we provided 20 assets that are worthy investing.
+#     \nThe symbols of these 20 assets are as follows:
+#     \n1 GE; 2 CVX; ...
+#     \nPlease select assets that you want to invest: 
+#     \n(Enter the number of the assets, e.g. if you want to invest GE, type in 1; CVX for 2;...)
+#     ''')re
+# illegal_asset = 100
+# judgement = 0
+# print('(Please use list to type in, e.g. [1,4,6,7,9])')
+# while illegal_asset > 0 or judgement < 1:
+#     number_of_assets = input()
+#     pattern1 = r'[0-9.]+'
+#     type_in_assets = re.findall(pattern1,number_of_assets)
+#     illegal_asset = 0
+#     select_assets = []
+#     for i in type_in_assets:
+#         a = int(float(i))
+#         if a <= 0 or a > 20 or a != float(i):
+#             illegal_asset += 1
+#             print('Please type in integer numbers between 1-20!')
+#         exist = 0
+#         for j in select_assets:
+#             if j == a:
+#                 exist += 1
+#         if exist >= 1:
+#             continue
+#         else:
+#             select_assets.append(a)
+#     if illegal_asset == 0:
+#         print(f'Your choices are assets: {select_assets}')
+#         print('Please verify your choice: 1 for Yes, 0 for No.')
+#         judge = input('judge = ')
+#         if int(float(judge)) == 1:
+#             judgement == 1
+#             break
+#         else:
+#             judgement == 0
+#             print('Please choose again:')
+# print(f'Your choices are assets: {select_assets}')
+
+
+###We need to ask investors to obtain their views towards the assets they invest.
+
+##Firstly, absolute views
+print('''Now, please type in your views towards the assets you would like to invest.\n
+There are two kinds of views you could input:\n
+Absolute views & Relative views.\n
+To express your views, you could type in views in formats as follows:\n
+For Absolute views: you could type in 'AMZN 0.05',\n
+which means that the asset 'Amazon' could achieve the rate of return at (5%+rf).\n
+5% is the excess rate of return compared with risk-free rate.\n
+(Attention please: the excess rate of return should be positive)\n
+Please type in your absolute views towards assets:\n
+(Please use decimal numbers to reflect the return, e.g. 0.03 stands for 3% in rate of return)\n
+(one single example:'AMZN, 0.05; CVX, 0.03')''')
+
+abso_view_judge = 1
+while abso_view_judge:
+    abso_view_judge = 0
+    abso_view_ori = input()
+    abso_pattern = r'[A-Za-z]+\W*[0-9.]+'
+    user_abso_view_str = re.findall(abso_pattern,abso_view_ori)
+    view = dict()
+    abso_view_list = []
+    for i in user_abso_view_str:
+        abso_name = r'^[A-Za-z]+'
+        abso_excess_return = r'[0-9.-]+$'
+        temp_name = re.findall(abso_name,i)
+        temp_ret = re.findall(abso_excess_return,i)
+        name_judge = 0
+        for j in symbols:
+            if j == temp_name[0]:
+                name_judge += 1
+        if name_judge > 0 and float(temp_ret[0]) > 0:
+            abso_view_list.append([temp_name[0],'',temp_ret[0]])
+        elif name_judge == 0:
+            print('Please input view about assets that you want to invest!\nPlease input your view again!')
+            abso_view_judge = 1
             continue
-        else:
-            select_assets.append(a)
-    if illegal_asset == 0:
-        print(f'Your choices are assets: {select_assets}')
-        print('Please verify your choice: 1 for Yes, 0 for No.')
-        judge = input('judge = ')
-        if int(float(judge)) == 1:
-            judgement == 1
-            break
-        else:
-            judgement == 0
-            print('Please choose again:')
-print(f'Your choices are assets: {select_assets}')
+        elif float(temp_ret[0]) <= 0:
+            print('Attention please: the excess return should be positive!\nPlease input your view again!')
+            abso_view_judge = 1
+            continue
+    view['absolute'] = abso_view_list
 
 ################################################################################################
 

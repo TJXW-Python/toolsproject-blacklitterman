@@ -6,6 +6,8 @@ Created on Thu Nov 18 10:46:54 2018
 @author: fiona.xue
 """
 %pylab
+%matplotlib inline
+pylab.rcParams['figure.figsize'] = (12, 8)
 import scipy.optimize
 from numpy import *
 from pandas import *
@@ -13,14 +15,16 @@ import re
 
 
 
+
 ##At the beginning of the project######################################################################
 #We need to ask users to provide the assets they would like to invest##################################
-print('Welcome to use the Blacklitterman Model project.')
-print('Based on the performance, we provided 20 assets that are worthy investing.')
-print('The symbols of these 20 assets are as follows:')
-print('1 GE; 2 CVX; ...')
-print('Please select assets that you want to invest: ')
-print('(Enter the number of the assets, e.g. if you want to invest GE, type in 1; CVX for 2;...)')
+print('''Welcome to use the Blacklitterman Model project.
+    \nBased on the performance, we provided 20 assets that are worthy investing.
+    \nThe symbols of these 20 assets are as follows:
+    \n1 GE; 2 CVX; ...
+    \nPlease select assets that you want to invest: 
+    \n(Enter the number of the assets, e.g. if you want to invest GE, type in 1; CVX for 2;...)
+    ''')re
 illegal_asset = 100
 judgement = 0
 print('(Please use list to type in, e.g. [1,4,6,7,9])')

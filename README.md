@@ -10,6 +10,8 @@ To achieve this end, we use several lines of code at the beginning to interact w
 We choose 20 stocks with high market capitalization ("caps") according to the following website: https://www.theonlineinvestor.com/large_caps/
 We save the 20 symbols and their corresponding market caps in a csv file and access stock data from Yahoo Finance with pandas given the csv file. This gives us two main advantages. (1) The SymbolAndCap.csv file is handy since we can load symbols and market caps from the csv file easily for further use and we can also easily update our pool of assets and their market caps as time passes. (2) The 20 csv files store historical stock prices and other stock-specific data from 2015-01-01 to 2018-11-1. They can be easily used when there is no strong demand for up-to-date data. We can load historical stock prices of S&P companies mentioned in the SymbolAndCap.csv file and return them together with their market capitalizations for further use. The code for updating the stock pool is in the file 'Access Data.ipynb'.
 
+To achieve our purpose for customization, we also need to ask for views from users. In our program, we could deal with two kinds of views: Absolute view & Relative view. ##To be continue
+
 Here are main steps to complete the model: 
 (1) To start with, we need to obtain the matrix of return and variance-covariance matrix of specific stocks, which would be used during the calculation. 
 (2) Then, we calculate the optimal portfolio based on Markowitz Model using optimization method. Based on the optimized result, we could find out the valid frontier of portfolio. And we could give out the optimal portfolio according to Markowitz Model. 

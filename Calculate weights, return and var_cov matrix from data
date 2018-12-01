@@ -4,7 +4,7 @@ import numpy as np
 #and use these data to calculate weights, return and covariance
 
 def compute_some_statistics(price_arrays):
-    price = matrix(price_arrays)
+    price = np.array(price_arrays)
     
     price_row, price_col = price_arrays.shape
     data_return = np.zeros((price_row, price_col - 1))

@@ -1,14 +1,14 @@
 # toolsproject-blacklitterman
 For tools project- Blacklitterman
 
-This project is created to calculate optimal portfolio based on Blacklitterman Model, which is based on Markowitz Model. In real life, there are several disadvantages in using Markowitz Model to find out the optimal portfolio, because the Markowitz Model only pays attention to historical statistics, which may not be able to reflect accurate situation in reality, especially when somebody holds unexposed news. Therefore, Blacklitterman Model could be an alternative to Markowitz Model, for it contains subject views given by investors. 
+This project is created to calculate optimal portfolio based on Blacklitterman Model, which is based on Markowitz Model. In real life, there are several disadvantages in using Markowitz Model to find out the optimal portfolio, because the Markowitz Model only pays attention to historical statistics, which may not be able to reflect accurate situation in reality, especially when somebody holds unexposed news. Therefore, Blacklitterman Model could be an alternative to Markowitz Model, for it contains subject views hold by investors. 
 
 In order to solve the optimal portfolio based on Blacklitterman Model, we need not only some important views towards assets but also the choice of assets that investors would like to invest. In our project, we would provide the user 20 assets with high market capitilization. Users should choose assets that they would like to invest based on their knowledge. At the same time, considering that investors may not be quite familiar with finance market, we would set some important views in advance. Therefore, the portfolio will be optimized automatically with some important views based on Blacklitterman Model. 
 
 To achieve this end, we use several lines of code at the beginning to interact with users and get the input about what assets users would like to invest. If the user input is consistent with the prompt (in terms of both the format and the stock symbols indicated), then we start to optimize the portfolio. Otherwise, the prompt pops up again to ask for a legal user input.
 
 We choose 20 stocks with high market capitalization ("caps") according to the following website: https://www.theonlineinvestor.com/large_caps/
-We save the 20 symbols and their corresponding market caps in a csv file and access stock data from Yahoo Finance with pandas given the csv file. This gives us two main advantages. (1) The SymbolAndCap.csv file is handy since we can load symbols and market caps from the csv file easily for further use and we can also easily update our pool of assets and their market caps as time passes. (2) The 20 csv files store historical stock prices and other stock-specific data from 2015-01-01 to 2018-11-1. They can be easily used when there is no strong demand for up-to-date data. We can load historical stock prices of S&P companies mentioned in the SymbolAndCap.csv file and return them together with their market capitalizations for further use. The code for updating the stock pool is in the file 'Access Data.ipynb'.
+We save the 20 stock sticks and their corresponding market caps in a csv file and access stock data from Yahoo Finance with pandas given the csv file. This gives us two main advantages. (1) The SymbolAndCap.csv file is handy since we can load symbols and market caps from the csv file easily for further use and we can also easily update our pool of assets and their market caps as time passes. (2) The 20 csv files store historical stock prices and other stock-specific data from 2015-01-01 to 2018-11-1. They can be easily used when there is no strong demand for up-to-date data. By the way, we can load historical stock prices of S&P companies mentioned in the SymbolAndCap.csv file and return them together with their market capitalizations for further use. The code for updating the stock pool is in the file 'Access Data.ipynb'.
 
 To achieve our purpose for customization, we also need to ask for views from users. In our program, we could deal with two kinds of views: Absolute view & Relative view. ##To be continue
 
@@ -23,7 +23,7 @@ The main idea of this part is to optimize the portfolio by adjusting its weights
 The input of the function should be: 
 (1) Rp: the matrix of return of assets derived by historical data;
 (2) Vp: the variance-covariances matrix between different assets;
-(3) rf: risk-free rate in the market., this is a given value.
+(3) rf: risk-free rate in the market. This is a given value. We set it equal to 0.015.
 The main procedure of the function is as follows:
 (1) Choose different target expected return; 
 (2) Optimize(Minimize) the objective function(the variance of the portfolio) by adjusting the weights of assets

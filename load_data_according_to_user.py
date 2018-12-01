@@ -46,7 +46,7 @@ def load_data(assets_list):
 
     price_arrays = [] # array of close prices of each stock chosen by the user
     for s in symbols:
-        data = pandas.read_csv('data/%s.csv' % s, index_col=None, parse_dates=['date']) # data is a pandas.dataframe
-        prices = list(data['close'])
+        data = pandas.read_csv('data/%s.csv' % s, index_col=None, parse_dates=True) # data is a pandas.dataframe
+        prices = list(data['Close'])
         price_arrays.append(prices) 
     return symbols, caps, price_arrays # price_arrays is an n*T list

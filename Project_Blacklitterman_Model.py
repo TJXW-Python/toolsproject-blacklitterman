@@ -56,45 +56,33 @@ while illegal_asset > 0 or judgement < 1:
 print(f'Your choices are assets: {select_assets}')
 ################################################################################################
 
-
-#This function calculate mean return
-def p_mean(Wp, Rp):
-    return sum(Rp * Wp)
-
-#This function calculate variance of returns
-def p_var(Wp, Vp):  
-    return dot(dot(Wp, Vp), Wp)
-
-# Combine mean and variance of returns calculation
-def p_mean_var(Wp, Rp, Vp):
-    return p_mean(Wp, Rp), p_var(Wp, Vp)
-
-
-
-
-
-##The function to calculate the valid frontier of portfolio constructed with given assets##
+##This function to calculate the valid frontier of portfolio constructed with given assets##
 def frontier_of_portfolio(Rp,Vp,rf):
-    exp_mean, opt_var = [], []
+    exp_mean = []
+    opt_var = []
+    
     num_of_assets = len(Rp)
     
-    min_ret, max_ret= min(Rp), max(Rp)
+    min_ret = min(Rp)
+    max_ret = max(Rp)
     group = 30 #Calculate 30 groups of optimal solution
     interval = (max_ret - min_ret)/(group - 1)
-    ret_list = [(min_ret + interval * i) for i in range(group)]
-    
-    # For given level of return r, find weights which minimizes portfolio variance.
+    ret_list = []
+    for i in range(group):
+        ret_list.append((min_ret + interval * i))
+    # For given level of return r, find weights which minimizes portfolio variance.  
     def func_for_optimization(Wp,Rp,Vp,r):
-        mean, var = p_mean_var(Wp, Rp, Vp)
-        penalty = 10000 * abs(mean - r)
+        mean = dot(Wp,Rp)
+        var = dot(dot(Wp,Vp),Wp)
+        penalty = 100 * abs(mean - r)
         #To guarantee that the mean of return of the portfolio should equal to r
         return var + penalty
-    #The recursion should follows different target return
-    for r in ret_list:
-        #Initial weight for optimization
-        Wp = ones(num_of_assets)/num_of_assets 
-         #The boundary of each weight for a specific asset
-        boundary = [(0, 1) for i in range(num_of_assets)]   
+    for r in ret_list:#The recursion should follows different target return
+        Wp = ones(num_of_assets)/num_of_assets #The initial weight for optimization
+        boundary = [] 
+        for i in range(num_of_assets):
+            boundary.append((0,1))
+            #The boundary of each weight for a specific asset
         constraint_ = ({'type': 'eq', 'fun': lambda Wp: sum(Wp) - 1.0})
         #The constraints in optimizing that the sum of weights should equal to 1
         opt_result = scipy.optimize.minimize(
@@ -103,15 +91,15 @@ def frontier_of_portfolio(Rp,Vp,rf):
         
         if opt_result.success:
             exp_mean.append(r)
-            opt_var.append(p_var(opt_result.x, Vp))
+            opt_var.append(dot(dot(opt_result.x,Vp),opt_result.x))
         else:
             raise BaseException(opt_result.message)
     
     return array(exp_mean),array(opt_var)
+
 ###############################################################################################
 
-
-#################################This part is used to find out the tangent point#######################################
+##This function is used to calculate the optimal tangent point of given assets and risk free assets.
 def weight_MV(Rp,Vp,rf):
     def weight_initial(Rp):                 # initial weight of the optimization procedure
         port_count = len(Rp)
@@ -119,8 +107,7 @@ def weight_MV(Rp,Vp,rf):
         for i in range(port_count):
             Wp.append(1/port_count)         # set all of these assets with equal weights in the portfolio
         return Wp
-    
-    def MV_object_function(Wp,Rp,Vp,rf):    # return the objective function of MV_optimization
+    def MV_object_function(Wp,Rp,Vp,rf):    # return the objective function of MV_optimization $$$$$$$$change 
         p_mean = sum(Rp*Wp)                 #calculate the mean return of the portfolio
         p_var = dot(dot(Wp,Vp),Wp)          #calculate the variance of the portfolio
         p_sharp_ratio= (p_mean - rf) / sqrt(p_var)
@@ -143,15 +130,12 @@ def weight_MV(Rp,Vp,rf):
     return MV_optimal(Rp,Vp,rf)
 #####################################################################################################################
 
-
 ##This part is used to optimize the portfolio based on equilibrium excess return##
 def optimal_portfolio_based_on_equilibrium_returns(Rp,Vp,rf):
     Wp = weight_MV(Rp,Vp,rf)
     opt_mean = dot(Wp,Rp)
     opt_var = dot(dot(Wp,Vp),Wp)
     frontier_mean,frontier_var = frontier_of_portfolio(Rp,Vp,rf)
- 
-    ##set a dictionary to intergrate all optimal patameters
     result_implied_return = dict()
     result_implied_return['Weights']=Wp
     result_implied_return['Tangent_mean']=opt_mean
@@ -169,16 +153,15 @@ def equilibrium_excess_return(W,Rp,Vp):
 
 Pi = equilibrium_excess_return(W,Rp,Vp)##Using market capitalization weight W
 
-result_eq = optimal_portfolio_based_on_equilibrium_returns(Pi + rf,Vp,rf)
+result_eq = optimal_portfolio_based_on_equilibrium_returns(Pi+rf,Vp,rf)
 ###################################################################################
-
 
 ## This part is used to optimize the portfolio based on equilibrium excess return 
 ## after adding investers' views and relation matrix into the equilibrium excess return--"Pi"
 def optimization_adding_views(Vp,view,view_link,Pi,rf):
 
     def pi_add_view(Vp,view,view_link,Pi):  
-        scalar = 0.0025       # scaling factor for blacklitterman model is set according to Lee's paper
+        scalar = 0.025       # scaling factor for blacklitterman model is set according to Lee's paper
         ##weight is measured by uncertainty, this is the uncertainty matrix of equilibrium excess return: pi_vol (n*n matrix)
         pi_vol = dot(scalar,Vp)                    
         view_vol= dot(dot(dot(scalar,view_link),Vp),transpose(view_link))  
@@ -197,7 +180,6 @@ def optimization_adding_views(Vp,view,view_link,Pi,rf):
     var_new = dot(dot(Wp_new,Vp),Wp_new)
     mean_frontier, var_frontier = frontier_of_portfolio(pi_new+rf,Vp,rf)
     
-    #set new dictionary to output all the related parameters and results.
     result_adding_views= dict()
     result_adding_views['Pi']=pi_new
     result_adding_views['Weights']=Wp_new
@@ -205,6 +187,7 @@ def optimization_adding_views(Vp,view,view_link,Pi,rf):
     result_adding_views['Tangent_var']=var_new
     result_adding_views['Frontier_mean']=mean_frontier
     result_adding_views['Frontier_var']=var_frontier
-    
-    return result_adding_views # return all the result in a dictionary
+    return result_adding_views
 ######################################################################################################
+
+

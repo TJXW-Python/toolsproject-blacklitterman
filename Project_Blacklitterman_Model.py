@@ -115,7 +115,7 @@ symbols, caps, prices = load_data(assets_list)
 # print(f'Your choices are assets: {select_assets}')
 
 
-###We need to ask investors to obtain their views towards the assets they invest.
+###We also need to ask investors to provide their views towards the assets they invest.
 
 ##Firstly, absolute views
 print('''Now, please type in your views towards the assets you would like to invest.\n

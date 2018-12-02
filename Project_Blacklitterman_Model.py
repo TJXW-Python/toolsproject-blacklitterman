@@ -159,7 +159,7 @@ rf = 0.015
 ###Also, we need to ask investors to obtain their views towards the assets they invest.
 
 ##Firstly, absolute views
-print('''Now, please type in your views towards the assets in your selection set.
+print('''Now, please type in your views towards assets in your selection set.
 There are two kinds of views you could input: Absolute views & Relative views.
 In this part, we only ask you to input your absolute views. To express your absolute views,
 you could type in views in formats as follows: 'AMZN 0.05'
@@ -210,15 +210,14 @@ view
 ################################################################################################
 
 ###Ask for relative views
-print('''Now, please type in your relative views towards assets.\n
-This kind of view should claim relationship between two different assets,\n
-both of which should come from your chosen assets.\n
-To input your relative views, you should compare the return of two chosen assets\n
-using specific patterns as follows(should include > or <):\n
-'AMZN > CVX 0.03', which means that you think that the asset 'AMZN' will have a higher return\n
+print('''Now, please type in your relative views towards assets in your selection set.
+This kind of view should claim relationship between two different assets 
+in your selection set.\n
+To input your relative views, you should compare the return of two chosen assets
+using specific patterns as follows(should include > or <): 'AMZN > CVX 0.03'
+which means that you think that the asset 'AMZN' will have a higher return
 compared with 'CVX', and the difference between them should be 3%(=0.03).\n
-So, a valid example could be:\n
-'AMZN > CVX 0.03;AAPL < JPM 0.02'\n
+So, a valid example could be: 'AMZN > CVX 0.03;AAPL < JPM 0.02'
 (Attention please: the difference here should be positive, for you can input < or >)''')
 
 relat_view_judge = 1

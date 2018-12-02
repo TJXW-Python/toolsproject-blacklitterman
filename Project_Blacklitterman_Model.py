@@ -23,11 +23,6 @@ import pandas_datareader as pdr
 
 ##At the beginning of the project######################################################################
 #We need to ask users to provide the assets they would like to invest##################################
-assets_list = []
-while assets_list == []:
-    assets_list = input('''Welcome to use the Blacklitterman Model project. \nBased on the performance, we provide 20 assets that are worthy of investing. \nThe symbols of these 20 assets are as follows: \n\nAAPL MSFT AMZN JNJ GOOG JPM XOM FB GOOGL BRK-B \nWMT BAC UNH PFE WFC V VZ PG CVX T
-    \nPlease type in the stock symbols you are interested in and separate them with a white space. Press Enter to complete. For example, AMZN AAPL BRK-B\n\n''')
-    assets_list = select_assets(assets_list)
 
 base = 'data/'
 pool_file = base + 'SymbolsAndCaps.csv'    
@@ -55,6 +50,12 @@ def select_assets(*args):
         print('\n\nCongratulations! Legal Input!')
         return assets
 
+assets_list = []
+while assets_list == []:
+    assets_list = input('''Welcome to use the Blacklitterman Model project. \nBased on the performance, we provide 20 assets that are worthy of investing. \nThe symbols of these 20 assets are as follows: \n\nAAPL MSFT AMZN JNJ GOOG JPM XOM FB GOOGL BRK-B \nWMT BAC UNH PFE WFC V VZ PG CVX T
+    \nPlease type in the stock symbols you are interested in and separate them with a white space. Press Enter to complete. For example, AMZN AAPL BRK-B\n\n''')
+    assets_list = select_assets(assets_list)    
+    
 # Function extract market caps corresponding to the stock symbols entered by the user
 # and also loads the historical stock prices and returns stock symbols, caps and historical prices
 def load_data(assets_list):
@@ -72,6 +73,7 @@ def load_data(assets_list):
         prices = list(data['Close'])
         price_arrays.append(prices) 
     return symbols, caps, price_arrays # price_arrays is an n*T list    
+
 symbols, caps, prices = load_data(assets_list)
 
 #Functions get market capitilizaions from our chosen data

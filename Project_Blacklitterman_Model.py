@@ -170,7 +170,7 @@ Please type in your absolute views towards assets:
 (Please use decimal numbers to reflect the return, e.g. 0.03 stands for 3% in rate of return)
 (one single example:'AMZN, 0.05; CVX, 0.03')
 (If you do not hold any absolute views, just press enter.)''')
-
+view = {}
 abso_view_judge = 1
 while abso_view_judge:
     abso_view_judge = 0

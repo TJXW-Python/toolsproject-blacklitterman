@@ -74,7 +74,7 @@ def load_data(assets_list):
         price_arrays.append(prices) 
     return symbols, caps, price_arrays # price_arrays is an n*T list    
 
-symbols, caps, prices = load_data(assets_list)
+symbols, caps, price_arrays = load_data(assets_list)
 
 #Functions get market capitilizaions from our chosen data
 #and use these data to calculate weights, return and covariance

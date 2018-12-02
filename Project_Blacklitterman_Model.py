@@ -29,6 +29,9 @@ while assets_list == []:
     \nPlease type in the stock symbols you are interested in and separate them with a white space. Press Enter to complete. For example, AMZN AAPL BRK-B\n\n''')
     assets_list = select_assets(assets_list)
 
+base = 'data/'
+pool_file = base + 'SymbolsAndCaps.csv'    
+    
 # Function loads stocks symbols and their market capitalizations, as of Nov 29, 2018
 def load_symbols_and_caps(file):
     symbols_caps = pandas.read_csv(file, index_col = None) # symbols_caps is a pandas.dataframe

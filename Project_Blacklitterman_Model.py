@@ -461,7 +461,9 @@ def graph_names(names, Rp, Vp, color='black'):
     scatter([Vp[i, i] ** .5 for i in range(len(Rp))], Rp, marker='x', color=color), grid(True)  
     for i in range(len(Rp)): 
         text(Vp[i, i] ** .5, Rp[i], '  %s' % names[i], verticalalignment='center', color=color) 
-
+        
+#######################################################################################################
+# This part will ouput a figure to illustrate the diffenence 
 #Collect the optimal weight of 3 models
 optimal_historical_data = optimal_portfolio_based_on_equilibrium_returns(Rp,Vp,rf)
 optimal_implied_excess_return =optimal_portfolio_based_on_equilibrium_returns(Pi+rf,Vp,rf)
@@ -478,3 +480,9 @@ graph_names(symbols,optimal_adding_views['Pi']+rf, Vp, color='red')
 graph_efficient_frontier(optimal_adding_views,label='Adding views', color='red')
 
 xlabel('variance $\sigma$'), ylabel('mean $\mu$'), legend(), show()
+#######################################################################################################
+#This part will output a table to tell the users their weights on their selecting assets.
+
+display(pandas.DataFrame({'Historical Data': optimal_historical_data['Weights'], 
+                          'Implied Data':optimal_implied_excess_return['Weights'], 
+                          'Involve views':optimal_adding_views['Weights']}, index=symbols).T)

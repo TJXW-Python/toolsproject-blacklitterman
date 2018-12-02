@@ -73,48 +73,6 @@ symbols, caps, prices = load_data(assets_list)
 
 
 
-# print('''Welcome to use the Blacklitterman Model project.
-#     \nBased on the performance, we provided 20 assets that are worthy investing.
-#     \nThe symbols of these 20 assets are as follows:
-#     \n1 GE; 2 CVX; ...
-#     \nPlease select assets that you want to invest: 
-#     \n(Enter the number of the assets, e.g. if you want to invest GE, type in 1; CVX for 2;...)
-#     ''')re
-# illegal_asset = 100
-# judgement = 0
-# print('(Please use list to type in, e.g. [1,4,6,7,9])')
-# while illegal_asset > 0 or judgement < 1:
-#     number_of_assets = input()
-#     pattern1 = r'[0-9.]+'
-#     type_in_assets = re.findall(pattern1,number_of_assets)
-#     illegal_asset = 0
-#     select_assets = []
-#     for i in type_in_assets:
-#         a = int(float(i))
-#         if a <= 0 or a > 20 or a != float(i):
-#             illegal_asset += 1
-#             print('Please type in integer numbers between 1-20!')
-#         exist = 0
-#         for j in select_assets:
-#             if j == a:
-#                 exist += 1
-#         if exist >= 1:
-#             continue
-#         else:
-#             select_assets.append(a)
-#     if illegal_asset == 0:
-#         print(f'Your choices are assets: {select_assets}')
-#         print('Please verify your choice: 1 for Yes, 0 for No.')
-#         judge = input('judge = ')
-#         if int(float(judge)) == 1:
-#             judgement == 1
-#             break
-#         else:
-#             judgement == 0
-#             print('Please choose again:')
-# print(f'Your choices are assets: {select_assets}')
-
-
 ###Also, we need to ask investors to obtain their views towards the assets they invest.
 
 ##Firstly, absolute views
@@ -130,7 +88,7 @@ Please type in your absolute views towards assets:\n
 (Please use decimal numbers to reflect the return, e.g. 0.03 stands for 3% in rate of return)\n
 (one single example:'AMZN, 0.05; CVX, 0.03')\n
 (If you do not hold any absolute views, just press enter.)''')
-view = {}
+view = {'absolute':[],'relative':[]}
 abso_view_judge = 1
 while abso_view_judge:
     abso_view_judge = 0

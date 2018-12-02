@@ -286,7 +286,7 @@ def matrix_view_and_link(symbols,view):
         for j in view[i]:
             view_.append(j)                
     view_matrix = [view_[i][2] for i in range(len(view_))]
-    view_matrix =array([float(i) for i in view_matix])
+    view_matrix =array([float(i) for i in view_matrix])
     
     #set an empty view link matrix 
     p_count = len(symbols)
@@ -464,7 +464,6 @@ def graph_names(names, Rp, Vp, color='black'):
 
 
 ##################################################################################################
-
 ##Collect the optimal weight of 3 models
 optimal_historical_data = optimal_portfolio_based_on_equilibrium_returns(Rp,Vp,rf)
 optimal_implied_excess_return =optimal_portfolio_based_on_equilibrium_returns(Pi+rf,Vp,rf)
@@ -473,13 +472,13 @@ optimal_adding_views = optimization_adding_views(Vp,view_matrix,link_matrix,Pi,r
 ##output of the whole model reslut into dataframe and graphs:
 def OUTPUT_MODEL(optimal_historical_data,optimal_implied_excess_return,optimal_adding_views):
     #Graph based on comparison among three models
-    graph_names(names,Rp,Vp,color='blue')
+    graph_names(symbols,Rp,Vp,color='blue')
     graph_efficient_frontier(optimal_historical_data,label='Historical Data', color='blue')
 
-    graph_names(names, Pi+rf, Vp, color='green')
+    graph_names(symbols, Pi+rf, Vp, color='green')
     graph_efficient_frontier(optimal_implied_excess_return,label='Implied Equilibrium Excess Return', color='green')
 
-    graph_names(names,optimal_adding_views['Pi']+rf, Vp, color='red')
+    graph_names(symbols,optimal_adding_views['Pi']+rf, Vp, color='red')
     graph_efficient_frontier(optimal_adding_views,label='Adding views', color='red')
 
     xlabel('variance $\sigma$'), ylabel('mean $\mu$'), legend(), show()
@@ -487,10 +486,12 @@ def OUTPUT_MODEL(optimal_historical_data,optimal_implied_excess_return,optimal_a
     ##This part will output a table to tell the users their optimal weights on their selecting assets based on three given models:
     display(pandas.DataFrame({'Return': Rp, 'Weight (original_MV_opt)': weight_MV(Rp,Vp,rf),
                           'Weight (Reverse Optimization)': optimal_portfolio_based_on_equilibrium_returns(Pi+rf,Vp,rf)['Weights'],
-                          'Weight (reverse opt)': optimal_adding_views['Weights']}, index=names).T)
-    display(pandas.DataFrame(Vp, columns=names, index=names))
+                          'Weight (reverse opt)': optimal_adding_views['Weights']}, index=symbols).T)
+    display(pandas.DataFrame(Vp, columns=symbols, index=symbols))
 
  ######################################################################################################
+
+OUTPUT_MODEL(optimal_historical_data,optimal_implied_excess_return,optimal_adding_views)
 
 
 

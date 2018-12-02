@@ -159,17 +159,16 @@ rf = 0.015
 ###Also, we need to ask investors to obtain their views towards the assets they invest.
 
 ##Firstly, absolute views
-print('''Now, please type in your views towards the assets you would like to invest.\n
-There are two kinds of views you could input:\n
-Absolute views & Relative views.\n
-To express your views, you could type in views in formats as follows:\n
-For Absolute views: you could type in 'AMZN 0.05',\n
-which means that the asset 'Amazon' could achieve the rate of return at (5%+rf).\n
-5% is the excess rate of return compared with risk-free rate.\n
+print('''Now, please type in your views towards the assets in your selection set.
+There are two kinds of views you could input: Absolute views & Relative views.
+In this part, we only ask you to input your absolute views. To express your absolute views,
+you could type in views in formats as follows: 'AMZN 0.05'
+which means that the asset 'Amazon' could achieve the rate of return at (5%+rf).
+Here, 5% is the excess rate of return compared with risk-free rate.
 (Attention please: the excess rate of return should be positive)\n
-Please type in your absolute views towards assets:\n
-(Please use decimal numbers to reflect the return, e.g. 0.03 stands for 3% in rate of return)\n
-(one single example:'AMZN, 0.05; CVX, 0.03')\n
+Please type in your absolute views towards assets:
+(Please use decimal numbers to reflect the return, e.g. 0.03 stands for 3% in rate of return)
+(one single example:'AMZN, 0.05; CVX, 0.03')
 (If you do not hold any absolute views, just press enter.)''')
 
 abso_view_judge = 1

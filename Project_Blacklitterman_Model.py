@@ -145,7 +145,7 @@ rf = 0.015
 # print(f'Your choices are assets: {select_assets}')
 
 
-###We also need to ask investors to provide their views towards the assets they invest.
+###Also, we need to ask investors to obtain their views towards the assets they invest.
 
 ##Firstly, absolute views
 print('''Now, please type in your views towards the assets you would like to invest.\n
@@ -158,36 +158,43 @@ which means that the asset 'Amazon' could achieve the rate of return at (5%+rf).
 (Attention please: the excess rate of return should be positive)\n
 Please type in your absolute views towards assets:\n
 (Please use decimal numbers to reflect the return, e.g. 0.03 stands for 3% in rate of return)\n
-(one single example:'AMZN, 0.05; CVX, 0.03')''')
+(one single example:'AMZN, 0.05; CVX, 0.03')\n
+(If you do not hold any absolute views, just press enter.)''')
 
 abso_view_judge = 1
 while abso_view_judge:
     abso_view_judge = 0
     abso_view_ori = input()
-    abso_pattern = r'[A-Za-z-]+\W*[0-9.-]+'
-    user_abso_view_str = re.findall(abso_pattern,abso_view_ori)
-    view = dict()
-    abso_view_list = []
-    for i in user_abso_view_str:
-        abso_name = r'^[A-Za-z-]+'
-        abso_excess_return = r'[0-9.-]+$'
-        temp_name = re.findall(abso_name,i)
-        temp_ret = re.findall(abso_excess_return,i)
-        name_judge = 0
-        for j in symbols:
-            if j == temp_name[0]:
-                name_judge += 1
-        if name_judge > 0 and float(temp_ret[0]) > 0:
-            abso_view_list.append([temp_name[0],'',temp_ret[0]])
-        elif name_judge == 0:
-            print('Please input view about assets that you want to invest!\nPlease input your view again!')
-            abso_view_judge = 1
-            continue
-        elif float(temp_ret[0]) <= 0:
-            print('Attention please: the excess return should be positive!\nPlease input your view again!')
-            abso_view_judge = 1
-            continue
-    view['absolute'] = abso_view_list
+    if not abso_view_ori:
+        abso_view_ori = 0
+        view['absolute'] = []
+        break
+    else:
+        abso_pattern = r'[A-Za-z-]+\W*[0-9.-]+'
+        user_abso_view_str = re.findall(abso_pattern,abso_view_ori)
+        view = dict()
+        abso_view_list = []
+        for i in user_abso_view_str:
+            abso_name = r'^[A-Za-z-]+'
+            abso_excess_return = r'[0-9.-]+$'
+            temp_name = re.findall(abso_name,i)
+            temp_ret = re.findall(abso_excess_return,i)
+            name_judge = 0
+            for j in symbols:
+                if j == temp_name[0]:
+                    name_judge += 1
+            if name_judge > 0 and float(temp_ret[0]) > 0:
+                abso_view_list.append([temp_name[0],'',temp_ret[0]])
+            elif name_judge == 0:
+                print('Please input view about assets that you want to invest!\nPlease input your view again!')
+                abso_view_judge = 1
+                continue
+            elif float(temp_ret[0]) <= 0:
+                print('Attention please: the excess return should be positive!\nPlease input your view again!')
+                abso_view_judge = 1
+                continue
+        view['absolute'] = abso_view_list
+
 
 ################################################################################################
 
@@ -207,51 +214,57 @@ relat_view_judge = 1
 while relat_view_judge:
     relat_view_judge = 0
     relat_view_ori = input()
-    relat_pattern = r'[A-Za-z-]+\W*[<>]\W*[A-Za-z-]+\W*[0-9.-]+'
-    user_relat_view_str = re.findall(relat_pattern,relat_view_ori)
-    if not user_relat_view_str:
-            print('Please input valid relative views!\nPlease input again:')
-            relat_view_judge = 1
-            continue
-    relat_view_list = []
-    for i in user_relat_view_str:
-        relat_both_name = r'^[A-Za-z-]+\W*[<>]\W*[A-Za-z-]+'
-        relat_excess_return = r'[0-9.-]+$'
-        temp_both_name = re.findall(relat_both_name,i)
-        temp_ret = re.findall(relat_excess_return,i)
-        smaller = 0
-        for k in i:
-            if k == '<':
-                smaller = 1
-        relat_name1 = r'^[A-Za-z-]+'
-        relat_name2 = r'[A-Za-z-]+$'
-        temp_name1 = re.findall(relat_name1,temp_both_name[0])
-        temp_name2 = re.findall(relat_name2,temp_both_name[0])
-        name1 = temp_name1[0]
-        name2 = temp_name2[0]
-        if name1 == name2:
-            print('Cannot compare two assets that are the same.')
-            relat_view_judge = 1
-            continue
-        if smaller == 1:
-            temp = name1
-            name1 = name2
-            name2 = temp
-        name_judge = 0
-        for j in symbols:
-            if j == name1 or j == name2:
-                name_judge += 1
-        if name_judge == 2 and float(temp_ret[0]) > 0:
-            relat_view_list.append([name1,name2,temp_ret[0]])#adjust the sequence to make name1 > name2
-        elif name_judge < 2:
-            print('Please input view about assets that you want to invest!\nPlease input your view again!')
-            relat_view_judge = 1
-            continue
-        elif float(temp_ret[0]) <= 0:
-            print('Attention please: the excess return should be positive!\nPlease input your view again!')
-            relat_view_judge = 1
-            continue
-    view['relative'] = relat_view_list
+    if not relat_view_ori:
+        relat_view_judge = 0
+        view['relative'] = []
+        break
+    else:
+        relat_pattern = r'[A-Za-z-]+\W*[<>]\W*[A-Za-z-]+\W*[0-9.-]+'
+        user_relat_view_str = re.findall(relat_pattern,relat_view_ori)
+        if not user_relat_view_str:
+                print('Please input valid relative views!\nPlease input again:')
+                relat_view_judge = 1
+                continue
+        relat_view_list = []
+        for i in user_relat_view_str:
+            relat_both_name = r'^[A-Za-z-]+\W*[<>]\W*[A-Za-z-]+'
+            relat_excess_return = r'[0-9.-]+$'
+            temp_both_name = re.findall(relat_both_name,i)
+            temp_ret = re.findall(relat_excess_return,i)
+            smaller = 0
+            for k in i:
+                if k == '<':
+                    smaller = 1
+            relat_name1 = r'^[A-Za-z-]+'
+            relat_name2 = r'[A-Za-z-]+$'
+            temp_name1 = re.findall(relat_name1,temp_both_name[0])
+            temp_name2 = re.findall(relat_name2,temp_both_name[0])
+            name1 = temp_name1[0]
+            name2 = temp_name2[0]
+            if name1 == name2:
+                print('Cannot compare two assets that are the same.')
+                relat_view_judge = 1
+                continue
+            if smaller == 1:
+                temp = name1
+                name1 = name2
+                name2 = temp
+            name_judge = 0
+            for j in symbols:
+                if j == name1 or j == name2:
+                    name_judge += 1
+            if name_judge == 2 and float(temp_ret[0]) > 0:
+                relat_view_list.append([name1,name2,temp_ret[0]])#adjust the sequence to make name1 > name2
+            elif name_judge < 2:
+                print('Please input view about assets that you want to invest!\nPlease input your view again!')
+                relat_view_judge = 1
+                continue
+            elif float(temp_ret[0]) <= 0:
+                print('Attention please: the excess return should be positive!\nPlease input your view again!')
+                relat_view_judge = 1
+                continue
+        view['relative'] = relat_view_list
+
 ###############################################################################################
 
 ##The function to calculate the valid frontier of portfolio constructed with given assets##

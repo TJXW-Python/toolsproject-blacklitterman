@@ -24,6 +24,9 @@ import pandas_datareader as pdr
 ##At the beginning of the project######################################################################
 #We need to ask users to provide the assets they would like to invest##################################
 
+## Note here we put the 'SymbolsAndCaps.csv' under the folder named 'data', you can find it in
+## our github project. To ensure the program can be be excuted successfully, you MUST put the python file 
+## and 'data' folder under the same folder.
 base = 'data/'
 pool_file = base + 'SymbolsAndCaps.csv'    
     
@@ -74,6 +77,7 @@ def load_data(assets_list):
         price_arrays.append(prices) 
     return symbols, caps, price_arrays # price_arrays is an n*T list    
 
+# We get symbols caps, price_arrays from the load_data function for later use.
 symbols, caps, price_arrays = load_data(assets_list)
 
 #Functions get market capitilizaions from our chosen data
@@ -102,6 +106,8 @@ def compute_some_statistics(price_arrays):
     var_cov_matx  = var_cov_matx * 250
     return cal_return, var_cov_matx
 
+#Calculate weight from market caps
+#Calculate return and var_cov_matrix
 W = np.array(caps) / sum(caps)
 Rp, Vp= compute_some_statistics(price_arrays)
 #In practice, this 1.5% real risk-free rate is the rate that investors expect to earn after 
@@ -200,7 +206,8 @@ while abso_view_judge:
                 continue
         view['absolute'] = abso_view_list
 
-
+#check the view input
+view
 ################################################################################################
 
 ###Ask for relative views
@@ -269,7 +276,8 @@ while relat_view_judge:
                 relat_view_judge = 1
                 continue
         view['relative'] = relat_view_list
-
+#check the view input
+view
 ###############################################################################################
 
 ##The function to calculate the valid frontier of portfolio constructed with given assets##
@@ -380,6 +388,7 @@ def matrix_view_and_link(symbols,view):
         for j in view[i]:
             view_.append(j)                
     view_matrix = [view_[i][2] for i in range(len(view_))]
+    view_matrix =array([float(i) for i in view_matix])
     
     #set an empty view link matrix 
     p_count = len(symbols)
@@ -400,7 +409,11 @@ def matrix_view_and_link(symbols,view):
         if symbol_2:
             link_matrix[i,symbols_index[symbol_2]] = -1
           
-    return link_matrix
+    return view_matrix, link_matrix
+
+##Compute the view_matix and link_matrix from our user input 
+# for later use
+view_matrix, link_matrix = matrix_view_and_link(symbols, view)
 
 ###############################################################################################
 
@@ -454,16 +467,16 @@ def graph_names(names, Rp, Vp, color='black'):
 #Collect the optimal weight of 3 models
 optimal_historical_data = optimal_portfolio_based_on_equilibrium_returns(Rp,Vp,rf)
 optimal_implied_excess_return =optimal_portfolio_based_on_equilibrium_returns(Pi+rf,Vp,rf)
-optimal_adding_views = optimization_adding_views(Vp,view,view_link,Pi,rf)
+optimal_adding_views = optimization_adding_views(Vp,view_matrix,link_matrix,Pi,rf)
 
 
-graph_names(names,Rp,Vp,color='blue')
+graph_names(symbols,Rp,Vp,color='blue')
 graph_efficient_frontier(optimal_historical_data,label='Historical Data', color='blue')
 
-graph_names(names, Pi+rf, Vp, color='green')
+graph_names(symbols, Pi+rf, Vp, color='green')
 graph_efficient_frontier(optimal_implied_excess_return,label='Implied Equilibrium Excess Return', color='green')
 
-graph_names(names,optimal_adding_views['Pi']+rf, Vp, color='red')
+graph_names(symbols,optimal_adding_views['Pi']+rf, Vp, color='red')
 graph_efficient_frontier(optimal_adding_views,label='Adding views', color='red')
 
 xlabel('variance $\sigma$'), ylabel('mean $\mu$'), legend(), show()

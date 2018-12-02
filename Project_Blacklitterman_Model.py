@@ -76,7 +76,8 @@ symbols, caps, prices = load_data(assets_list)
 ###Also, we need to ask investors to obtain their views towards the assets they invest.
 
 ##Firstly, absolute views
-print('''Now, please type in your views towards the assets you would like to invest.\n
+print('''--------------------------------------------------------------------------\n
+Now, please type in your views towards the assets you would like to invest.\n
 There are two kinds of views you could input:\n
 Absolute views & Relative views.\n
 To express your views, you could type in views in formats as follows:\n
@@ -127,7 +128,8 @@ while abso_view_judge:
 ################################################################################################
 
 ###Ask for relative views
-print('''Now, please type in your relative views towards assets.\n
+print('''----------------------------------------------------------------------------------\n
+Now, please type in your relative views towards assets.\n
 This kind of view should claim relationship between two different assets,\n
 both of which should come from your chosen assets.\n
 To input your relative views, you should compare the return of two chosen assets\n

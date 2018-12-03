@@ -13,9 +13,8 @@ from datetime import datetime
 import pandas_datareader as pdr
 
 
-
-##At the beginning of the project######################################################################
-#We need to ask users to provide the assets they would like to invest##################################
+#####################################################################################################################
+##At the beginning of the project, we need to ask users to provide the assets they would like to invest
 
 ## Note here we put the 'SymbolsAndCaps.csv' under the folder named 'data', you can find it in
 ## our github project. To ensure the program can be be excuted successfully, you MUST put the python file 
@@ -52,7 +51,8 @@ while assets_list == []:
     Welcome to use the Blacklitterman Model project. \nBased on the performance, we provide 20 assets that are worthy of investing. \nThe symbols of these 20 assets are as follows: \n\nAAPL MSFT AMZN JNJ GOOG JPM XOM FB GOOGL BRK-B \nWMT BAC UNH PFE WFC V VZ PG CVX T
     \nPlease type in the stock symbols you are interested in and separate them with a white space. Press Enter to complete. For example, AMZN AAPL BRK-B\n\n''')
     assets_list = select_assets(assets_list)    
-    
+#####################################################################################################################
+
 # Function extract market caps corresponding to the stock symbols entered by the user
 # and also loads the historical stock prices and returns stock symbols, caps and historical prices
 def load_data(assets_list):
@@ -107,9 +107,9 @@ Rp, Vp= compute_some_statistics(price_arrays)
 #In practice, this 1.5% real risk-free rate is the rate that investors expect to earn after 
 #inflation from a risk-free investment with a 10-year duration after inflation.
 rf = 0.015
+#####################################################################################################################
 
 ###Also, we need to ask investors to obtain their views towards the assets they invest.
-
 ##Firstly, absolute views
 
 print('''--------------------------------------------------------------------------\n

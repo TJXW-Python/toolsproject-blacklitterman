@@ -1,8 +1,8 @@
 # toolsproject-blacklitterman
 
-Group name:  TJXW_Python 
-Section 1
-Members: Zihao Wu; Jinghan Xue; Ningyuan Tang; Zhuangzhuang Jia
+**Group name:**  TJXW_Python 
+**Section 1**
+**Members:** Zihao Wu; Jinghan Xue; Ningyuan Tang; Zhuangzhuang Jia
 
 **For tools project- Blacklitterman**
 

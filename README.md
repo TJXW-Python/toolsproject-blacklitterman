@@ -16,7 +16,7 @@ This project is created to calculate optimal portfolio based on the Black-Litter
 
 **INSTALLATION INSTRUCTIONS**
 
-In order to use the tool, the user must put the folder "data" in the same folder as "Project_Blacklitterman_Model.py". Also, the user should install pandas-datareader on the terminal first. For Anaconda users, enter in the terminal
+In order to use the tool, the user must put the folder "data" in the same folder as "SourceCode_Project-BlacklittermanModel.ipynb". Also, the user should install pandas-datareader on the terminal first. For Anaconda users, enter in the terminal
 
     conda install -c anaconda pandas-datareader
 Otherwise, enter in the terminal

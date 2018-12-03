@@ -1,25 +1,27 @@
 # toolsproject-blacklitterman
 
 **Group name:** 
+
 TJXW_Python 
 **Section 1**
+
 **Members:**
+
 Zihao Wu; Jinghan Xue; Ningyuan Tang; Zhuangzhuang Jia
 
 **For tools project- Blacklitterman**
 
 This project is created to calculate optimal portfolio based on Blacklitterman Model, which is based on Markowitz Model. In real life, there are several disadvantages in using Markowitz Model to find out the optimal portfolio, because the Markowitz Model only pays attention to historical statistics, which may not be able to reflect accurate situation in reality, especially when somebody holds unexposed news. Therefore, Blacklitterman Model could be an alternative to Markowitz Model, for it contains subject views hold by investors. 
 
-*****INSTALLATION INSTRUCTIONS*******
+**INSTALLATION INSTRUCTIONS**
 
 Have to install pandas-datareader on terminal first!!!
 
 Terminal: conda install -c anaconda pandas-datareader 
 OR $ pip install pandas-datareader
 
-In order to solve the optimal portfolio based on Blacklitterman Model, we need not only some important views towards assets but also the choice of assets that investors would like to invest. In our project, we would provide the user 20 assets with high market capitilization. Users should choose assets that they would like to invest based on their knowledge. At the same time, considering that investors may not be quite familiar with finance market, we would set some important views in advance. Therefore, the portfolio will be optimized automatically with some important views based on Blacklitterman Model. 
-
 **Beginning: data collection & portfolio construction**
+- In order to solve the optimal portfolio based on Blacklitterman Model, we need not only some important views towards assets but also the choice of assets that investors would like to invest. In our project, we would provide the user 20 assets with high market capitilization. Users should choose assets that they would like to invest based on their knowledge. At the same time, considering that investors may not be quite familiar with finance market, we would set some important views in advance. Therefore, the portfolio will be optimized automatically with some important views based on Blacklitterman Model. 
 - To achieve this end, we use several lines of code at the beginning to interact with users and get the input about what assets users would like to invest. If the user input is consistent with the prompt (in terms of both the format and the stock symbols indicated), then we start to optimize the portfolio. Otherwise, the prompt pops up again to ask for a legal user input.
 - We choose 20 stocks with high market capitalization ("caps") according to the following website: https://www.theonlineinvestor.com/large_caps/
 - We save the 20 stock sticks and their corresponding market caps in a csv file and access stock data from Yahoo Finance with pandas given the csv file. This gives us two main advantages.

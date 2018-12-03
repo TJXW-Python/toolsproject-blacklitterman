@@ -1,5 +1,5 @@
 
-1. In order to use the tool, the user must put the folder "data" in the same folder as "Project_Blacklitterman_Model.py". 
+1. In order to use the tool, the user must put the folder "data" in the same folder as "SourceCode_Project-BlacklittermanModel.ipynb". 
 
 2. Also, the user should install pandas-datareader on the terminal first. 
 For Anaconda users, enter in the terminal

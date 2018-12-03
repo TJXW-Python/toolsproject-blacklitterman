@@ -136,3 +136,6 @@ After constructing the views matrix and link matrix to express the investors' vi
 
 Blacklitterman Model has different scaling factor('scalar') based on academic research and professional industry experience, the scalar and the uncertainty in the views are the most abstract and difficult to specify parameters of the model. Therefore, i recommend users to change scalar in the function based on their confidence of expressed views.
 
+**Reference**
+
+https://corporate.morningstar.com/ib/documents/methodologydocuments/ibbassociates/blacklitterman.pdf

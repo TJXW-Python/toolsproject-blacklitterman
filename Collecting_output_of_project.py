@@ -11,7 +11,7 @@ optimal_historical_data = optimal_portfolio_based_on_equilibrium_returns(Rp,Vp,r
 optimal_implied_excess_return =optimal_portfolio_based_on_equilibrium_returns(Pi+rf,Vp,rf)
 optimal_adding_views = optimization_adding_views(Vp,view,view_link,Pi,rf)
 
-##output of the whole model reslut into dataframe and graphs:
+## Display thewhole model using tables and graphs:
 def OUTPUT_MODEL(optimal_historical_data,optimal_implied_excess_return,optimal_adding_views):
     graph_names(names,Rp,Vp,color='blue')
     graph_efficient_frontier(optimal_historical_data,label='Historical Data', color='blue')
@@ -24,6 +24,8 @@ def OUTPUT_MODEL(optimal_historical_data,optimal_implied_excess_return,optimal_a
 
     xlabel('variance $\sigma$'), ylabel('mean $\mu$'), legend(), show()
 
+    ##This part will output a table to tell the users their optimal weights 
+    #on their selecting assets based on three given models:
     display(pandas.DataFrame({'Return': Rp, 'Weight (original_MV_opt)': weight_MV(Rp,Vp,rf),
                           'Weight (Reverse Optimization)': optimal_portfolio_based_on_equilibrium_returns(Pi+rf,Vp,rf)['Weights'],
                           'Weight (reverse opt)': optimal_adding_views['Weights']}, index=names).T)

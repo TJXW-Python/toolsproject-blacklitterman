@@ -1,13 +1,4 @@
-#!/usr/bin/env python3
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Nov 18 10:46:54 2018
-
-@author: fiona.xue
-"""
-%pylab
 %matplotlib inline
-pylab.rcParams['figure.figsize'] = (12, 8)
 import scipy.optimize
 from numpy import *
 from pandas import *

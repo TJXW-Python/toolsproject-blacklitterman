@@ -9,16 +9,20 @@ TJXW_Python
 
 Zihao Wu; Jinghan Xue; Ningyuan Tang; Zhuangzhuang Jia
 
-**For Tools Project- Blacklitterman**
 
-This project is created to calculate optimal portfolio based on Blacklitterman Model, which is based on Markowitz Model. In real life, there are several disadvantages in using Markowitz Model to find out the optimal portfolio, because the Markowitz Model only pays attention to historical statistics, which may not be able to reflect accurate situation in reality, especially when somebody holds unexposed news. Therefore, Blacklitterman Model could be an alternative to Markowitz Model, for it contains subject views hold by investors. 
+**For Tools Project- Porfolio Optimization with the Black-Litterman Model**
+
+This project is created to calculate optimal portfolio based on the Black-Litterman Model, which is based on the Markowitz Model. In real life, there are several disadvantages in using the Markowitz Model to find out the optimal portfolio, because the Markowitz Model only pays attention to historical statistics, which may not be able to reflect accurate situation in reality, especially when somebody holds unexposed news. Therefore, the Blacklitterman Model could be an alternative to the Markowitz Model, for it contains subject views hold by investors. 
 
 **INSTALLATION INSTRUCTIONS**
 
-Have to install pandas-datareader on terminal first!!!
+In order to use the tool, the user must put the folder "data" in the same folder as "Project_Blacklitterman_Model.py". Also, the user should install pandas-datareader on the terminal first. For Anaconda users, enter in the terminal
 
-Terminal: conda install -c anaconda pandas-datareader 
-OR $ pip install pandas-datareader
+    conda install -c anaconda pandas-datareader
+Otherwise, enter in the terminal
+
+    pip install pandas-datareader
+
 
 **Beginning: data collection & portfolio construction**
 - In order to solve the optimal portfolio based on Blacklitterman Model, we need not only some important views towards assets but also the choice of assets that investors would like to invest. In our project, we would provide the user 20 assets with high market capitilization. Users should choose assets that they would like to invest based on their knowledge. At the same time, considering that investors may not be quite familiar with finance market, we would set some important views in advance. Therefore, the portfolio will be optimized automatically with some important views based on Blacklitterman Model. 

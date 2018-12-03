@@ -24,7 +24,10 @@ Otherwise, enter in the terminal
     pip install pandas-datareader
     
 **Run Instructions**
+**Step 1-get code and data**
+After installing pandas-datareader on the terminal, users need to download two files **SourceCode_Project-BlacklittermanModel.ipynb** and **data** into the same file. Then, it is okay to open **SourceCode_Project-BlacklittermanModel.ipynb** with JupyterLab and run the code. 
 
+**Step 2-interaction**
 To use run this project, users need to type in three parts of contents: the choice of their desire assets, absolute views towards assets they hold and relative views towards assets they hold. The specific patterns for each part are as follows:
 - The choice of their desire assets: in this part, the project would provide users 20 assets, which have high market value. Users could choose 1-20 assets they would like to invest. The assets should be separated with **ONE WHITE SPACE** and **PRESS ENTER TO COMPLETE**. A feasible input could be: **AMZN JPM CVX XOM BRK-B AAPL**
 - Absolute views towards assets they hold: in this part, users are required to input absolute views they hold towards assets. Absolute views are the views that users hold considering some specific assets could achieve a special level of excess rate of return compared with risk-free rate. To complete this part, users could type in 0 or more views they hold. The views could be expressed with two components: the name of the specific asset and the expected excess rate of return. A feasible input could be: **AMZN 0.02,XOM 0.03** (Attention please: the excess rate of return should be positive and be expressed with decimal numbers, like 0.01, which equals to 1%; also, the asset names in this part should be a subset of the names in users' selection set). 

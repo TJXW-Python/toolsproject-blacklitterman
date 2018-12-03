@@ -11,7 +11,7 @@ This project is created to calculate optimal portfolio based on Blacklitterman M
 *****INSTALLATION INSTRUCTIONS*******
 Have to install pandas-datareader on terminal first!!!
 Terminal: conda install -c anaconda pandas-datareader 
-or $ pip install pandas-datareader
+OR $ pip install pandas-datareader
 
 In order to solve the optimal portfolio based on Blacklitterman Model, we need not only some important views towards assets but also the choice of assets that investors would like to invest. In our project, we would provide the user 20 assets with high market capitilization. Users should choose assets that they would like to invest based on their knowledge. At the same time, considering that investors may not be quite familiar with finance market, we would set some important views in advance. Therefore, the portfolio will be optimized automatically with some important views based on Blacklitterman Model. 
 

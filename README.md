@@ -23,6 +23,7 @@ In order to solve the optimal portfolio based on Blacklitterman Model, we need n
  (2)The 20 csv files store historical stock prices and other stock-specific data from 2015-01-01 to 2018-11-1. They can be easily used when there is no strong demand for up-to-date data. By the way, we can load historical stock prices of S&P companies mentioned in the SymbolAndCap.csv file and return them together with their market capitalizations for further use. The code for updating the stock pool is in the file 'Access Data.ipynb'.
 
 **Interaction: Views Collection:**
+
 To achieve our purpose for customization, we also need to ask for views from users. In our program, we could deal with two kinds of views: Absolute view & Relative view. In order to get views from users, we need to recognize the input provided by users. Therefore, we chose to use Regular Expression method to complete this part. Based on the specific form we provided, users could type their views (both absolute and relative) into our project with proofreading, which is beneficial for not only users but also our project to calculate results. What is more, to better interact with users, we print out the requirement for typing holds, which could help users to type in their views in a right way. (For more details, please run the corresponding code and get more information about the format to input absolute views and relative views)
 
 
@@ -56,6 +57,7 @@ The main idea of this part is to optimize the portfolio by adjusting its weights
 
 
 **Optimizing Assets Allocation Weights(Function:weight_MV):**
+
 Blacklitterman mainly depends on the technique of reverse optimization of conventional approach to get optimal allocation of assets in a given portfolio. Therefore, after aassets information collection, we should build function to sovle the optimal allocation weights of each assets in the portfolio based on Markowitz Model.
 - Input the estimated parameters of the portfolio:
   (1)Portfolio expected returns
@@ -69,6 +71,7 @@ Blacklitterman mainly depends on the technique of reverse optimization of conven
 
 
 **Optimizing allocation weights based on implied equilibrium return and investors' views(Function:optimal_portfolio_based_on_equilibrium_returns:**
+
 After constructing the views matrix and link matrix to express the investors' views on some assets of the portfolio, we need to add these views to the implied equilibrium excess return to get new optimal weights, the weight of view is determined by the scaling factor for views. The scaling factor here is set to be 0.025, referring to Lee's paper materials. User can also set this scalar equals to 1 divided by observation numbers.
 - Input of the function should be:
   (1)The view matrix
@@ -93,5 +96,6 @@ After constructing the views matrix and link matrix to express the investors' vi
 
 
 **Further Reference for using this project for better adjustment:**
+
 Blacklitterman Model has different scaling factor('scalar') based on academic research and professional industry experience, the scalar and the uncertainty in the views are the most abstract and difficult to specify parameters of the model. Therefore, i recommend users to change scalar in the function based on their confidence of expressed views.
 

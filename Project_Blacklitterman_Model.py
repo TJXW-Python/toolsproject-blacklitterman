@@ -1,4 +1,6 @@
+%pylab
 %matplotlib inline
+pylab.rcParams['figure.figsize'] = (12, 8)
 import scipy.optimize
 from numpy import *
 from pandas import *

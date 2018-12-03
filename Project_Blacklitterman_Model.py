@@ -442,11 +442,17 @@ def OUTPUT_MODEL(optimal_historical_data,optimal_implied_excess_return,optimal_a
 
     xlabel('variance $\sigma$'), ylabel('mean $\mu$'), legend(), show()
     
-    ##This part will output a table to tell the users their optimal weights 
+    #This part will output a table to tell the users their optimal weights 
     #on their selecting assets based on three given models:
-    display(pandas.DataFrame({'Return': Rp, 'Weight (original_MV_opt)': weight_MV(Rp,Vp,rf),
+    display(pandas.DataFrame({'Return': Rp, 'Weight (Markowitz opt)': weight_MV(Rp,Vp,rf),
                           'Weight (Reverse Optimization)': optimal_portfolio_based_on_equilibrium_returns(Pi+rf,Vp,rf)['Weights'],
-                          'Weight (reverse opt)': optimal_adding_views['Weights']}, index=symbols).T)
+                          'Weight (Blacklitterman opt)': optimal_adding_views['Weights']}, index=symbols).T)
+    #This part will output a table to tell the users their optimal return and volitality
+    #on their selecting assets and risk free assets based on three given models:
+    display(pandas.DataFrame({'Markowitz Model':[optimal_historical_data['Tangent_mean'],optimal_historical_data['Tangent_var']],
+                          'Reverse Model': [optimal_implied_excess_return['Tangent_mean'],optimal_implied_excess_return['Tangent_var']],
+                          'Blacklitterman Model(SCLALAR=0.025)': [optimal_adding_views['Tangent_mean'],optimal_adding_views['Tangent_var']]}, 
+                         index=['Portfolio(add risk_free) Return','Portfolio(add risk_free) Volitality']).T)
     #Display the var_cov_matrix of the assets chosen by users.
     display(pandas.DataFrame(Vp, columns=symbols, index=symbols))
 

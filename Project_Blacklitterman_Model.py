@@ -372,7 +372,11 @@ result_eq = optimal_portfolio_based_on_equilibrium_returns(Pi+rf,Vp,rf)
 def optimization_adding_views(Vp,view,view_link,Pi,rf):
 
     def pi_add_view(Vp,view,view_link,Pi):  
-        scalar = 0.025       # scaling factor for blacklitterman model is set according to Lee's paper
+        
+        # This is a scalar number indicating the uncertainty of the CAPM distribution (0.025-0.05)
+        # Scalar too high makes a very weak statement for our prior estimate of the mean.
+        # Here we set it equals to 0.025 according to Lee's paper.
+        scalar = 0.025       
         ##weight is measured by uncertainty, this is the uncertainty matrix of equilibrium excess return: pi_vol (n*n matrix)
         pi_vol = dot(scalar,Vp)                    
         view_vol= dot(dot(dot(scalar,view_link),Vp),transpose(view_link))  

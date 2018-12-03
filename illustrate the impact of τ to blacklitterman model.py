@@ -52,4 +52,4 @@ def optimization_adding_views(Vp,view,view_link,Pi,rf):
         
         result_adding_views_list.append(result_adding_views)
     return result_adding_views_list
-  
+  #Running the program, we find in this computation, there is no actual difference

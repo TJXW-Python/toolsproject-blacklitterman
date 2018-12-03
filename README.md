@@ -82,9 +82,9 @@ Blacklitterman mainly depends on the technique of reverse optimization of conven
 
 **Optimizing allocation weights based on implied equilibrium return and investors' views(Function:optimal_portfolio_based_on_equilibrium_returns:**
 
-After constructing the views matrix and link matrix to express the investors' views on some assets of the portfolio, we need to add these views to the implied equilibrium excess return to get new optimal weights, the weight of view is determined by the scaling factor for views. The scaling factor here is set to be 0.025, referring to Lee's paper materials. User can also set this scalar equals to 1 divided by observation numbers.
+After constructing the views matrix and link matrix to express the investors' views on some assets of the portfolio, we need to add these views to the implied equilibrium excess return to get new optimal weights, the weight of view is determined by the scaling factor for views. This scalar number indicating the uncertainty of the CAPM distribution (0.025-0.05). If this scalar is too high, it will make a very weak statement for our prior estimate of the mean.The scaling factor here is set to be 0.025, referring to Lee's paper materials. User can also set this scalar equals to 1 divided by observation numbers.
 - Input of the function should be:
-  (1)The view matrix
+  (1)view matrix
   (2)link matrix to assets pool, scaling factor
   (3)implied equilibrium excess return vector
   (4)variance-covariance matrix of original portfolio

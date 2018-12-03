@@ -9,7 +9,7 @@ TJXW_Python
 
 Zihao Wu; Jinghan Xue; Ningyuan Tang; Zhuangzhuang Jia
 
-**For tools project- Blacklitterman**
+**For Tools Project- Blacklitterman**
 
 This project is created to calculate optimal portfolio based on Blacklitterman Model, which is based on Markowitz Model. In real life, there are several disadvantages in using Markowitz Model to find out the optimal portfolio, because the Markowitz Model only pays attention to historical statistics, which may not be able to reflect accurate situation in reality, especially when somebody holds unexposed news. Therefore, Blacklitterman Model could be an alternative to Markowitz Model, for it contains subject views hold by investors. 
 
@@ -97,8 +97,8 @@ After constructing the views matrix and link matrix to express the investors' vi
 
 **Output Collection:**
 - Output the graph of optimal results based on three models to make a comparison for user;
-- Output the optimal allocation weights into dataframe;
-- Output the covariance matrix of the selected assets in user's portfolio for reference.
+- Output the optimal allocation weights of three models into dataframe;
+- Output the variance covariance matrix of the selected assets in user's portfolio for reference.
 
 
 **Further Reference for using this project for better adjustment:**

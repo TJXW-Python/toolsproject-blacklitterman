@@ -117,16 +117,18 @@ rf = 0.015
 ###Also, we need to ask investors to obtain their views towards the assets they invest.
 
 ##Firstly, absolute views
-print('''Now, please type in your views towards assets in your selection set.
-There are two kinds of views you could input: Absolute views & Relative views.
-In this part, we only ask you to input your absolute views. To express your absolute views,
-you could type in views in formats as follows: 'AMZN 0.05'
-which means that the asset 'Amazon' could achieve the rate of return at (5%+rf).
-Here, 5% is the excess rate of return compared with risk-free rate.
+
+print('''--------------------------------------------------------------------------\n
+Now, please type in your views towards assets in your selection set.\n
+There are two kinds of views you could input: Absolute views & Relative views.\n
+In this part, we only ask you to input your absolute views. \n
+To express your absolute views, you could type in views in formats as follows: \n
+'AMZN 0.05', which means that the asset 'Amazon' could achieve the rate of return at (5%+rf).\n
+Here, 5% is the excess rate of return compared with risk-free rate.\n
 (Attention please: the excess rate of return should be positive)\n
-Please type in your absolute views towards assets:
-(Please use decimal numbers to reflect the return, e.g. 0.03 stands for 3% in rate of return)
-(one single example:'AMZN, 0.05; CVX, 0.03')
+Please type in your absolute views towards assets:\n
+(Please use decimal numbers to reflect the return, e.g. 0.03 stands for 3% in rate of return)\n
+(one single example:'AMZN, 0.05; CVX, 0.03')\n
 (If you do not hold any absolute views, just press enter.)''')
 view = {'absolute':[],'relative':[]}
 abso_view_judge = 1
@@ -168,14 +170,15 @@ view
 ################################################################################################
 
 ###Ask for relative views
-print('''Now, please type in your relative views towards assets in your selection set.
-This kind of view should claim relationship between two different assets 
-in your selection set.\n
-To input your relative views, you should compare the return of two chosen assets
-using specific patterns as follows(should include > or <): 'AMZN > CVX 0.03'
-which means that you think that the asset 'AMZN' will have a higher return
+
+print('''----------------------------------------------------------------------------------\n
+Now, please type in your relative views towards assets in your selection set.\n
+This kind of view should claim relationship between two different assets in your selection set.\n
+To input your relative views, you should compare the return of two chosen assets\n
+using specific patterns as follows(should include > or <): 'AMZN > CVX 0.03',\n
+which means that you think that the asset 'AMZN' will have a higher return\n
 compared with 'CVX', and the difference between them should be 3%(=0.03).\n
-So, a valid example could be: 'AMZN > CVX 0.03;AAPL < JPM 0.02'
+So, a valid example could be: 'AMZN > CVX 0.03;AAPL < JPM 0.02'\n
 (Attention please: the difference here should be positive, for you can input < or >)''')
 
 relat_view_judge = 1

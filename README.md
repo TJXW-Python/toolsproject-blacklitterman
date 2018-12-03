@@ -28,7 +28,7 @@ Otherwise, enter in the terminal
 
 **Step 1-get code and data**
 
-After installing pandas-datareader on the terminal, users need to download two files **SourceCode_Project-BlacklittermanModel.ipynb** and **data** into the same file. Then, it is okay to open **SourceCode_Project-BlacklittermanModel.ipynb** with JupyterLab and run the code. 
+After installing pandas-datareader on the terminal, users need to download two files **SourceCode_Project-BlacklittermanModel.ipynb** and **data** into the same file. Then, it is okay to open **SourceCode_Project-BlacklittermanModel.ipynb** within **JupyterLab** and run the code. 
 
 
 **Step 2-interaction**

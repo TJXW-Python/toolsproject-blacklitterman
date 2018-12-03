@@ -17,6 +17,7 @@ def matrix_view_and_link(symbols,view):
         for j in view[i]:
             view_.append(j)                
     view_matrix = [view_[i][2] for i in range(len(view_))]
+    view_matrix =array([float(i) for i in view_matrix])
     
     #set an empty view link matrix 
     p_count = len(symbols)

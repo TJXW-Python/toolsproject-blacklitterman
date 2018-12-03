@@ -1,15 +1,19 @@
 # toolsproject-blacklitterman
 
-**Group name:**  TJXW_Python 
+**Group name:** 
+TJXW_Python 
 **Section 1**
-**Members:** Zihao Wu; Jinghan Xue; Ningyuan Tang; Zhuangzhuang Jia
+**Members:**
+Zihao Wu; Jinghan Xue; Ningyuan Tang; Zhuangzhuang Jia
 
 **For tools project- Blacklitterman**
 
 This project is created to calculate optimal portfolio based on Blacklitterman Model, which is based on Markowitz Model. In real life, there are several disadvantages in using Markowitz Model to find out the optimal portfolio, because the Markowitz Model only pays attention to historical statistics, which may not be able to reflect accurate situation in reality, especially when somebody holds unexposed news. Therefore, Blacklitterman Model could be an alternative to Markowitz Model, for it contains subject views hold by investors. 
 
 *****INSTALLATION INSTRUCTIONS*******
+
 Have to install pandas-datareader on terminal first!!!
+
 Terminal: conda install -c anaconda pandas-datareader 
 OR $ pip install pandas-datareader
 

@@ -22,6 +22,17 @@ In order to use the tool, the user must put the folder "data" in the same folder
 Otherwise, enter in the terminal
 
     pip install pandas-datareader
+    
+**Run Instructions**
+
+To use run this project, users need to type in three parts of contents: the choice of their desire assets, absolute views towards assets they hold and relative views towards assets they hold. The specific patterns for each part are as follows:
+- The choice of their desire assets: in this part, the project would provide users 20 assets, which have high market value. Users could choose 1-20 assets they would like to invest. The assets should be separated with **ONE WHITE SPACE** and **PRESS ENTER TO COMPLETE**. A feasible input could be: **AMZN JPM CVX XOM BRK-B AAPL**
+- Absolute views towards assets they hold: in this part, users are required to input absolute views they hold towards assets. Absolute views are the views that users hold considering some specific assets could achieve a special level of excess rate of return compared with risk-free rate. To complete this part, users could type in 0 or more views they hold. The views could be expressed with two components: the name of the specific asset and the expected excess rate of return. A feasible input could be: **AMZN 0.02,XOM 0.03** (Attention please: the excess rate of return should be positive and be expressed with decimal numbers, like 0.01, which equals to 1%; also, the asset names in this part should be a subset of the names in the choice of users). 
+- Relative views towards assets they hold: in this part, users are required to input relative views they hold towards assets. Relative views are the views that users hold considering the relationships between different assets, which contains the difference of rate of return between assets. To complete this part, users could type in 0 or more views they hold. The views could be expressed with 4 components: two names of the chosen assets, a larger or smaller than sign and the difference of rate of return. A feasible input could be: **JPM > AAPL 0.05, CVX < BRK-B 0.02** (Attention please: the asset names in this part should also be a subset of the names in the choice of users; because we can use '>' or '<', the difference of rate of return should be positive and decimal numbers). 
+*****In general, a feasible input to run this project could be:***
+**AMZN JPM CVX XOM BRK-B AAPL**
+**AMZN 0.02,XOM 0.03** 
+**JPM > AAPL 0.05, CVX < BRK-B 0.02**
 
 
 **Beginning: data collection & portfolio construction**
